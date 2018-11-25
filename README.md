@@ -1,4 +1,8 @@
-# node-js-getting-started
+# controle-notas-sgbd
+
+Aplicativo criado para o trabalho final da matéria de Sistemas Gerenciadores de Bancos de Dados da PUC Goiás.
+
+## Instructions
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
 
