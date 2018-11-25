@@ -1,0 +1,8 @@
+{
+  "name": "Controle de Notas - SGBD",
+  "description": "Aplicativo criado para o trabalho final da matéria de Sistemas Gerenciadores de Bancos de Dados da PUC Goiás.",
+  "repository": "https://github.com/felipefa/controle-notas-sgbd",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}
