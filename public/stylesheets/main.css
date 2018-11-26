@@ -1,6 +1,22 @@
 :root {
-  --cor-primaria: #7a7786;
-  --cor-primaria-alt: #3e3c49;
+  --cor-primaria: #343a40;
+  --cor-primaria-alt: #000000;
+}
+
+.nav-link:hover {
+ color: var(--cor-primaria-alt) !important;
+}
+
+.nav-pills .nav-link {
+  color: white;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: var(--cor-primaria) !important;
+}
+
+a .nav-link {
+ color: var(--cor-primaria);
 }
 
 body {
