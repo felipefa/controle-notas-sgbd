@@ -6,7 +6,7 @@ Aplicação criada para o trabalho final da disciplina de Sistemas Gerenciadores
 
 - Baixar e instalar o Node.js LTS do site: https://nodejs.org/en/
 
-- Configurar o git pelo terminal...
+- Configurar usuário e senha do git pelo terminal...
 
 - Clonar e executar o projeto:
 ``` sh
