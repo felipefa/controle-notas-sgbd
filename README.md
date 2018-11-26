@@ -1,44 +1,32 @@
-# controle-notas-sgbd
+# Sistema de Controle de Notas N1 e N2
 
-Aplicativo criado para o trabalho final da matéria de Sistemas Gerenciadores de Bancos de Dados da PUC Goiás.
+Aplicação criada para o trabalho final da disciplina de Sistemas Gerenciadores de Bancos de Dados (SGBD) da PUC Goiás cursada em 2018-2.
 
-## Instructions
+## Instruções
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+- Baixar e instalar o Node.js LTS do site: https://nodejs.org/en/
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+- Configurar usuário e senha do git pelo terminal...
 
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
-
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
+- Clonar e executar o projeto:
+``` sh
+$ git clone https://github.com/felipefa/controle-notas-sgbd.git
+$ cd controle-notas-sgbd
 $ npm install
-$ npm start
+$ npm install -g nodemon
+$ nodemon start
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+## Funcionalidades
 
-## Deploying to Heroku
+Conforme informado pelo professor, a aplicação deve conter as seguintes funcionalidades.
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
-# controle-notas-sgbd
+- Cadastro de alunos, turmas, disciplinas e lançamento de notas;
+- Todas as janelas de cadastro devem possuir uma aba de cadastro e outra de pesquisa;
+- Lançamento de notas depende do aluno, sua turma e a disciplina, todos selecionados através de uma combobox;
+- A pesquisa do cadastro de notas pode ser realizada pelo nome do aluno (ou parte do nome), pelo nome da disciplina (ou parte do nome) e pelo nome da turma;
+- As informações pesquisadas devem ser mostradas em uma tableview;
+- Quando um dado da pesquisa for selecionado, suas informações devem ser apresentadas na aba cadastro para que o usuário possa efetuar a atualização;
+- Os outros cadastros podem ter pesquisa usando combobox;
+- Ao selecionar um item na combobox de pesquisa, os dados da pesquisa devem ser apresentados na aba de cadastro;
+- Criar relatório geral de notas (com as notas n1, n2 e média final), ordenando por turma e aluno (considerar filtragem por uma determinada turma).
