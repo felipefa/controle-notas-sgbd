@@ -1,11 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
-	<span class="navbar-brand mb-0 h1">Controle de Notas</span>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="/">Controle de Notas</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
 	 aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-	<div class="collapse navbar-collapse" id="navbarText">
-		<a class="ml-auto nav-link text-white" href="#">Pessoa logada</a>
-		<a class="nav-link text-white" href="#">Sair</a>
+	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		<div class="navbar-nav">
+			<a class="nav-item nav-link" href="/">Início <span class="sr-only">(atual)</span></a>
+			<a class="nav-item nav-link" href="/alunos">Alunos</a>
+			<a class="nav-item nav-link" href="/disciplinas">Disciplinas</a>
+		</div>
+		<div class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+			<a class="nav-item nav-link" href="#">Pessoa logada</a>
+			<a class="nav-item nav-link" href="/">Sair</a>
+		</div>
 	</div>
 </nav>

@@ -12,7 +12,6 @@ const app = express();
 const alunosRoute = require('./routes/alunos.route');
 // const disciplinasRoute = require('./routes/disciplinas.route');
 // const notasRoute = require('./routes/notas.route');
-// const turmasRoute = require('./routes/turmas.route');
 
 // Conexão com o Banco de Dados
 // const conexao = mysql.createConnection({  
@@ -49,9 +48,10 @@ app.set('view engine', 'ejs');
 app.use('/api/alunos', alunosRoute);
 // app.use('/api/disciplinas', disciplinasRoute);
 // app.use('/api/notas', notasRoute);
-// app.use('/api/turmas', turmasRoute);
 
 // Direciona para a página inicial
 app.get('/', (req, res) => res.render('pages/index'));
+app.get('/alunos', (req, res) => res.render('pages/alunos'));
+app.get('/disciplinas', (req, res) => res.render('pages/disciplinas'));
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
