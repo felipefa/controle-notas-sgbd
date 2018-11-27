@@ -9,39 +9,39 @@
   </header>
 
   <div class="container pt-3">
-    <h2 class="text-white">Alunos</h2>
+    <h2 class="text-center text-white py-3">Alunos</h2>
     <nav class="nav nav-pills flex-column flex-sm-row" role="tablist">
-      <a class="flex-sm-fill text-sm-center nav-link active" data-toggle="pill" href="#pills-cadastrar" role="tab"
-        aria-controls="pills-cadastrar" aria-selected="true">Cadastrar</a>
-      <a class="flex-sm-fill text-sm-center nav-link" data-toggle="pill" href="#pills-pesquisar" role="tab"
-        aria-controls="pills-pesquisar" aria-selected="false">Pesquisar</a>
+      <a class="flex-sm-fill text-sm-center nav-link" data-toggle="pill" href="#pills-cadastrar" role="tab"
+        aria-controls="pills-cadastrar" aria-selected="false">Cadastrar</a>
+      <a class="flex-sm-fill text-sm-center nav-link active" data-toggle="pill" href="#pills-pesquisar" role="tab"
+        aria-controls="pills-pesquisar" aria-selected="true">Pesquisar</a>
     </nav>
 
     <div class="tab-content mt-3">
-      <div class="tab-pane active" id="pills-cadastrar" role="tabpanel" aria-labelledby="pills-cadastrar-tab">
-        <div class="card text-white bg-dark">
+      <div class="tab-pane" id="pills-cadastrar" role="tabpanel" aria-labelledby="pills-cadastrar-tab">
+        <div class="card bg-dark text-white shadow-lg">
           <div class="card-body">
             <h5 class="card-title">Cadastrar</h5>
             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
+            <a href="#" class="btn btn-warning">Button</a>
           </div>
         </div>
       </div>
-      <div class="tab-pane" id="pills-pesquisar" role="tabpanel" aria-labelledby="pills-pesquisar-tab">
-        <div class="card text-white bg-dark">
+      <div class="tab-pane active" id="pills-pesquisar" role="tabpanel" aria-labelledby="pills-pesquisar-tab">
+        <div class="card bg-dark text-white shadow-lg">
           <div class="card-body">
             <h5 class="card-title">Pesquisar</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Button</a>
+              <p class="card-text py-3 text-center">Nenhum aluno encontrado. Vá em <a href="#" >Alunos > Cadastrar</a> para adicionar alunos.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="/javascripts/jquery-3.3.1.slim.min.js"></script>
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <script src="/javascripts/popper.min.js"></script>
   <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/main.js"></script>
 </body>
 
 </html>

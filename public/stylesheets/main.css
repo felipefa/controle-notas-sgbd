@@ -3,10 +3,6 @@
   --cor-primaria-alt: #000000;
 }
 
-.nav-link:hover {
- color: var(--cor-primaria-alt) !important;
-}
-
 .nav-pills .nav-link {
   color: white;
 }
@@ -17,6 +13,19 @@
 
 a .nav-link {
  color: var(--cor-primaria);
+}
+
+a {
+  color: var(--warning);
+}
+
+a:hover, .navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
+  color: #e0a800;
+  border-color: #d39e00;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover, .nav-link:hover {
+ color: var(--warning) !important;
 }
 
 body {

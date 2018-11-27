@@ -9,14 +9,15 @@
   </header>
 
   <div class="container pt-3">
-    <h2 class="text-white">Bem-vindo!</h2>
+    <h2 class="text-center text-white py-3"><%= usuario.nome %>, bem-vind@ ao Sistema de Controle de Notas!</h2>
     <div class="row">
       <div class="col-6">
         <div class="card text-white bg-dark">
           <div class="card-body">
             <h5 class="card-title">Alunos</h5>
-            <p class="card-text">Adicione ou pesquise alunos.</p>
-            <a href="#" class="btn btn-primary">Button</a>
+            <p class="card-text">Gerencie os alunos.</p>
+            <p class="card-text">Adicione, edite, remova e veja os alunos que quiser.</p>
+            <a href="/alunos" class="btn btn-warning">Mais detalhes</a>
           </div>
         </div>
       </div>
@@ -24,17 +25,19 @@
         <div class="card text-white bg-dark">
           <div class="card-body">
             <h5 class="card-title">Disciplinas</h5>
-            <p class="card-text">Adicione ou pesquise disciplinas.</p>
-            <a href="#" class="btn btn-primary">Button</a>
+            <p class="card-text">Gerencie as disciplinas.</p>
+            <p class="card-text">Adicione, edite, remova e veja as disciplinas que quiser.</p>
+            <a href="/disciplinas" class="btn btn-warning">Mais detalhes</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="/javascripts/jquery-3.3.1.slim.min.js"></script>
+  <script src="/javascripts/jquery-3.3.1.min.js"></script>
   <script src="/javascripts/popper.min.js"></script>
   <script src="/javascripts/bootstrap.min.js"></script>
+  <script src="/javascripts/main.js"></script>
 </body>
 
 </html>
