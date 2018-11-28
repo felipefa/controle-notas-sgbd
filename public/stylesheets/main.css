@@ -3,6 +3,14 @@
   --cor-primaria-alt: #000000;
 }
 
+.card {
+  border-radius: 1rem;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
 .nav-pills .nav-link {
   color: white;
 }
