@@ -3,47 +3,47 @@ const router = express.Router();
 const usuariosCtrl = require('../controllers/usuarios.controller');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const verificaAutenticado = require('../utils/verificaAutenticado');
 
+// Insere as rotas dos alunos, disciplinas e notas
 const alunosRoute = require('./alunos.route');
-const disciplinasRoute = require('./disciplinas.route');
-const notasRoute = require('./notas.route');
+// const disciplinasRoute = require('./disciplinas.route');
+// const notasRoute = require('./notas.route');
 
-express().use('/api/alunos', alunosRoute);
-
-// Redireciona para a página de login
+// Carrega a página de login
 router.get('/entrar', (req, res) => {
   res.render('pages/entrar');
 });
 
-// Redireciona para a página de cadastro de usuário
+// Carrega a página de cadastro de usuário
 router.get('/registrar', (req, res) => {
   res.render('pages/registrar');
 });
 
-// Redireciona para a página inicial caso esteja logado, senão vai para a página de login
-router.get('/', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render('pages/index', {usuario: req.user});
-  } else {
-    res.redirect('/entrar');
-  }
+// Sai da conta logada e carrega a página de login
+router.get('/sair', (req, res) => {
+  req.logout();
+
+  res.redirect('/entrar');
 });
 
-// Redireciona para a página inicial caso esteja logado, senão vai para a página de login
-router.get('/alunos', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render('pages/alunos', {usuario: req.user});
-  } else {
-    res.redirect('/entrar');
-  }
+// Redireciona para as apis dos alunos, disciplinas e notas
+router.use('/api/alunos', verificaAutenticado, alunosRoute);
+// router.use('/api/disciplinas', verificaAutenticado, disciplinasRoute);
+// router.use('/api/notas', verificaAutenticado, notasRoute);
+
+// Carrega a página inicial caso esteja logado
+router.get('/', verificaAutenticado, (req, res) => {
+  res.render('pages/index', { usuario: req.user });
 });
 
-// Redireciona para a página inicial caso esteja logado, senão vai para a página de login
-router.get('/disciplinas', (req, res) => {
-  if (req.isAuthenticated()) {
-    res.render('pages/disciplinas', {usuario: req.user});
-  } else {
-    res.redirect('/entrar');
+// Carrega a página solicitada na URL caso exista, senão exibe erro
+// TODO: Criar página de erro 404
+router.get('/:pagina', verificaAutenticado, (req, res) => {
+  try {
+    res.render('pages/' + req.params.pagina, { usuario: req.user });
+  } catch (e) {
+    res.send(404, 'Página não encontrada: ' + e);
   }
 });
 
@@ -70,10 +70,12 @@ passport.use(new LocalStrategy({
   })
 );
 
+// Serializa usuário
 passport.serializeUser((usuario, done) => {
   done(null, usuario.id);
 });
 
+// Desserializa usuário
 passport.deserializeUser((id, done) => {
   usuariosCtrl.getUsuarioPorId(id, (err, usuario) => {
     done(err, usuario);
@@ -85,16 +87,6 @@ router.post('/registrar', usuariosCtrl.registrar);
 
 // Recebe os dados enviados para fazer login
 router.post('/entrar',
-  passport.authenticate('local', { successRedirect: '/', failureRedirect: '/entrar' }),
-  (req, res) => {
-    res.redirect('/');
-  });
-
-// Sai da conta logada e redireciona para a página de login
-router.get('/sair', (req, res) => {
-  req.logout();
-
-  res.redirect('/entrar');
-});
+  passport.authenticate('local', { successRedirect: '/', failureRedirect: '/entrar' }));
 
 module.exports = router;

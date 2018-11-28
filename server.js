@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 const session = require('express-session');
 const passport = require('passport');
 
-// Conexão com o Banco de Dados
+// Gerencia a conexão com o Banco de Dados
 function handleDisconnect() {
   let conexao = mysql.createConnection({
     host: config.host,
@@ -38,13 +38,11 @@ function handleDisconnect() {
 
 handleDisconnect();
 
+const app = express();
+global.app = app;
+
 // Rotas
 const apiRoute = require('./routes/routes');
-// const alunosRoute = require('./routes/alunos.route');
-// const disciplinasRoute = require('./routes/disciplinas.route');
-// const notasRoute = require('./routes/notas.route');
-
-const app = express();
 
 // Libera o CORS
 app.use((req, res, next) => {
@@ -53,6 +51,7 @@ app.use((req, res, next) => {
   next();
 });
 
+// Define a engine da visão para o EJS
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -70,36 +69,27 @@ app.use(session({
   resave: true
 }));
 
-// Passport init
+// Inicializa o Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Inicia as rotas
 app.use('/', apiRoute);
 
-// Inicia routes da API
-// app.use('/api/alunos', alunosRoute);
-// app.use('/api/disciplinas', disciplinasRoute);
-// app.use('/api/notas', notasRoute);
-
-// Direciona para as páginas
-// app.get('/', (req, res) => res.render('pages/index'));
-// app.get('/alunos', (req, res) => res.render('pages/alunos'));
-// app.get('/disciplinas', (req, res) => res.render('pages/disciplinas'));
-
-// catch 404 and forward to error handler
+// Captura erro 404 e encaminha para o gerenciador de erros
 app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
+// Cuida de possíveis erros na rota
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
+  // define variáveis locais de erro
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
+  // carrega página de erro
   res.status(err.status || 500);
   res.send('error');
 });
