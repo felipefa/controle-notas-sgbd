@@ -8,7 +8,7 @@ const verificaAutenticado = require('../utils/verificaAutenticado');
 // Insere as rotas dos alunos, disciplinas e notas
 const alunosRoute = require('./alunos.route');
 const disciplinasRoute = require('./disciplinas.route');
-// const notasRoute = require('./notas.route');
+const alunoDisciplinaRoute = require('./aluno_disciplina.route');
 
 // Carrega a página de login
 router.get('/entrar', (req, res) => {
@@ -30,7 +30,7 @@ router.get('/sair', (req, res) => {
 // Redireciona para as apis dos alunos, disciplinas e notas
 router.use('/api/alunos', verificaAutenticado, alunosRoute);
 router.use('/api/disciplinas', verificaAutenticado, disciplinasRoute);
-// router.use('/api/notas', verificaAutenticado, notasRoute);
+router.use('/api/alunodisciplina', verificaAutenticado, alunoDisciplinaRoute);
 
 // Carrega a página inicial caso esteja logado
 router.get('/', verificaAutenticado, (req, res) => {

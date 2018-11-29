@@ -19,13 +19,14 @@ function handleDisconnect() {
 
   conexao.connect((err) => {
     if (err) {
-      console.log('error when connecting to db:', err);
+      // console.log('\n\nErro ao conectar ao BD\n', err);
       setTimeout(handleDisconnect, 2000);
     }
+    // console.log('\n\nConexão com o BD estabelecida com sucesso!');
   });
 
   conexao.on('error', (err) => {
-    console.log('db error', err);
+    // console.log('\n\nErro na conexão com o BD\n', err);
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
       handleDisconnect();
     } else {
