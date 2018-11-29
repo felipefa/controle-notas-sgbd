@@ -18,16 +18,27 @@ montarTabela = (tipo) => {
 			let html = '';
 
 			dados.forEach((dado, index) => {
-				html += `
-					<tr onClick="editar('${tipo}', ${dado.id})">
-						<th scope="row">${index+1}</th>
-						<td>${dado.nome}</td>
-						<td>${dado.matricula}</td>
-						<td>${dado.cpf}</td>
-						<td>${dado.email}</td>
-						<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
-					</tr>
-				`;
+				if (tipo === 'alunos') {
+					html += `
+						<tr onClick="editar('${tipo}', ${dado.id})">
+							<th scope="row">${index+1}</th>
+							<td>${dado.nome}</td>
+							<td>${dado.matricula}</td>
+							<td>${dado.cpf}</td>
+							<td>${dado.email}</td>
+							<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
+						</tr>
+					`;
+				} else if (tipo === 'disciplinas') {
+					html += `
+						<tr onClick="editar('${tipo}', ${dado.id})">
+							<th scope="row">${index+1}</th>
+							<td>${dado.codigo}</td>
+							<td>${dado.nome}</td>
+							<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
+						</tr>
+					`;
+				}
 			});
 
 			$(`#tbody_${tipo}`).html(html);
