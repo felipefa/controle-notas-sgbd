@@ -34,14 +34,16 @@ router.use('/api/alunos', verificaAutenticado, alunosRoute);
 
 // Carrega a página inicial caso esteja logado
 router.get('/', verificaAutenticado, (req, res) => {
-  res.render('pages/index', { usuario: req.user });
+  let usuario = req.user ? req.user : {nome: 'Sem usuário'};
+  res.render('pages/index', { usuario: usuario });
 });
 
 // Carrega a página solicitada na URL caso exista, senão exibe erro
 // TODO: Criar página de erro 404
 router.get('/:pagina', verificaAutenticado, (req, res) => {
   try {
-    res.render('pages/' + req.params.pagina, { usuario: req.user });
+    let usuario = req.user ? req.user : {nome: 'Sem usuário'};
+    res.render('pages/' + req.params.pagina, { usuario: usuario });
   } catch (e) {
     res.send(404, 'Página não encontrada: ' + e);
   }

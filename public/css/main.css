@@ -45,3 +45,7 @@ a:hover,
 body {
   font-family: 'Lato', sans-serif;
 }
+
+tr {
+  cursor: pointer;
+}
