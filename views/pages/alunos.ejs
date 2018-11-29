@@ -9,39 +9,29 @@
   </header>
 
   <div class="container pt-3">
-    <h2 class="text-center text-white py-3">Alunos</h2>
-    <nav class="nav nav-pills flex-column flex-sm-row" role="tablist">
-      <a class="flex-sm-fill text-sm-center nav-link" data-toggle="pill" href="#pills-cadastrar" role="tab"
-        aria-controls="pills-cadastrar" aria-selected="false">Cadastrar</a>
-      <a class="flex-sm-fill text-sm-center nav-link active" data-toggle="pill" href="#pills-pesquisar" role="tab"
-        aria-controls="pills-pesquisar" aria-selected="true">Pesquisar</a>
-    </nav>
-
-    <div class="tab-content mt-3">
-      <div class="tab-pane" id="pills-cadastrar" role="tabpanel" aria-labelledby="pills-cadastrar-tab">
-        <div class="card bg-dark text-white shadow-lg">
-          <div class="card-body">
-            <h5 class="card-title">Cadastrar</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-warning">Button</a>
-          </div>
-        </div>
-      </div>
-      <div class="tab-pane active" id="pills-pesquisar" role="tabpanel" aria-labelledby="pills-pesquisar-tab">
-        <div class="card bg-dark text-white shadow-lg">
-          <div class="card-body">
-            <h5 class="card-title">Pesquisar</h5>
-              <p class="card-text py-3 text-center">Nenhum aluno encontrado. <a href="#" >Clique aqui</a> para adicionar um aluno.</p>
-          </div>
-        </div>
+    <h2 class="py-3 text-center">Alunos</h2>
+    <div class="card bg-dark text-white shadow-lg">
+      <div class="card-body">
+        <p class="card-text py-3 text-center" id="nenhumAluno">Nenhum aluno encontrado. <a href="#">Clique aqui</a>
+          para adicionar um aluno.</p>
+        <table class="rounded table table-dark table-striped" id="tabelaAlunos">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Matrícula</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Email</th>
+              <th scope="col">Excluir</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyAlunos"></tbody>
+        </table>
       </div>
     </div>
   </div>
 
-  <script src="/javascripts/jquery-3.3.1.min.js"></script>
-  <script src="/javascripts/popper.min.js"></script>
-  <script src="/javascripts/bootstrap.min.js"></script>
-  <script src="/javascripts/main.js"></script>
+  <% include ../partials/js.ejs %>
 </body>
 
 </html>
