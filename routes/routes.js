@@ -91,4 +91,10 @@ router.post('/registrar', usuariosCtrl.registrar);
 router.post('/entrar',
   passport.authenticate('local', { successRedirect: '/', failureRedirect: '/entrar' }));
 
+router.get(['/api/usuarios/:atributo/:valor', '/api/usuarios/:valor'], verificaAutenticado, usuariosCtrl.buscarUsuarioPorAtributo);
+
+router.put('/api/usuarios/:id', verificaAutenticado, usuariosCtrl.atualizarUsuario);
+
+router.delete('/api/usuarios/:id', verificaAutenticado, usuariosCtrl.removerUsuario);
+
 module.exports = router;

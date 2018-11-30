@@ -1,24 +1,28 @@
 const bcryptjs = require('bcryptjs');
+let Usuario = require('../models/usuarios.model');
 
 exports.registrar = (req, res) => {
-	// console.log("req",req.body);
-	let dados = {
-		'nome': req.body.nome,
-		'sobrenome': req.body.sobrenome,
-		'email': req.body.email,
-		'senha': req.body.senha,
-	}
+	let atributos = Object.keys(Usuario);
 
-	bcryptjs.genSalt(10, (err, salt) => {
-		bcryptjs.hash(dados.senha, salt, (err, hash) => {
-			if (err) {
-				console.log("error ocurred", err);
+	atributos.forEach(atributo => {
+		if (req.body[atributo]) {
+			Usuario[atributo] = req.body[atributo];
+		} else {
+			console.log(`Erro ao criar usuário.\nAtributo ${atributo} vazio.`);
+			res.status(400).redirect('/registrar');
+		}
+	});
+
+	bcryptjs.genSalt(10, (erroSalt, salt) => {
+		bcryptjs.hash(Aluno.senha, salt, (erroHash, hash) => {
+			if (erroHash) {
+				console.log('Erro ao criar hash da senha', erroHash);
 				res.status(400).redirect('/registrar');
 			} else {
-				dados.senha = hash;
-				conexao.query('INSERT INTO usuarios SET ?', dados, (error, results, fields) => {
-					if (error) {
-						console.log("error ocurred", error);
+				Aluno.senha = hash;
+				conexao.query('INSERT INTO usuarios SET ?', Aluno, (erro) => {
+					if (erro) {
+						console.log('Erro ao inserir novo usuário', erro);
 						res.status(400).redirect('/registrar');
 					} else {
 						res.redirect('/entrar');
@@ -29,44 +33,140 @@ exports.registrar = (req, res) => {
 	});
 }
 
+/**
+ *	@function compararSenha - Compara a possível senha com o hash
+ * 
+ * @param {String} possivelSenha - Possível senha que deve ser comparada
+ * @param {String} hash - Hash que deve ser usado na comparação
+ * @param {(erro: Error, sucesso: boolean)} resultado - Callback para retornar o resultado da comparação
+ */
 exports.compararSenha = (possivelSenha, hash, resultado) => {
-	// console.log('compararSenha')
-	bcryptjs.compare(possivelSenha, hash, (err, isMatch) => {
-		if (err) throw err;
-		resultado(null, isMatch);
+	bcryptjs.compare(possivelSenha, hash, (erro, sucesso) => {
+		if (erro) throw erro;
+		resultado(null, sucesso);
 	});
 }
 
 exports.getUsuarioPorEmail = (email, resultado) => {
-	// console.log('getUsuarioPorEmail')
-	conexao.query('SELECT * FROM usuarios WHERE email = ?', [ email ], (error, results, fields) => {
-		if (error) {
-			console.log("erro ao buscar usuário por email", error);
-			resultado(error, null);
+	conexao.query('SELECT * FROM usuarios WHERE email = ?', [email], (erro, resultados) => {
+		if (erro) {
+			console.log('Erro ao buscar usuário por email', erro);
+			resultado(erro, null);
 		} else {
-			// console.log('The solution is: ', results);
-			if (results.length > 0) {
-				resultado(null, results[ 0 ]);
+			if (resultados.length > 0) {
+				resultado(null, resultados[0]);
 			} else {
-				console.log('Email não registrado');
-				resultado(error, null);
+				resultado('Email não registrado', null);
 			}
 		}
 	});
 }
 
 exports.getUsuarioPorId = (id, resultado) => {
-	// console.log('getUsuarioPorId')
-	conexao.query('SELECT * FROM usuarios WHERE id = ?', [ id ], (error, results, fields) => {
-		if (error) {
-			console.log("erro ao buscar usuário por email", error);
-			resultado(error, null);
+	conexao.query('SELECT * FROM usuarios WHERE id = ?', [id], (erro, resultados) => {
+		if (erro) {
+			console.log('Erro ao buscar usuário por id', erro);
+			resultado(erro, null);
 		} else {
-			if (results.length > 0) {
-				resultado(null, results[ 0 ]);
+			if (resultados.length > 0) {
+				resultado(null, resultados[0]);
 			} else {
-				resultado(error, null);
+				console.log('Id não encontrada');
+				resultado('Id não encontrada', null);
 			}
 		}
 	});
+}
+
+exports.buscarUsuarioPorAtributo = (req, res) => {
+	let atributo = req.params.atributo ? req.params.atributo : 'id';
+	let valor = req.params.valor;
+	let query = `SELECT * FROM usuarios WHERE ${atributo} `;
+
+	if (atributo === 'id') {
+		query += `= ${valor}`;
+	} else {
+		query += `like "${valor}%"`;
+	}
+
+	conexao.query(query, (erro, resultado) => {
+		if (erro) {
+			console.log(`Erro ao buscar usuário por ${atributo}`, erro);
+			res.status(500).json({
+				erro,
+				mensagem: `Erro ao buscar usuário por ${atributo}`
+			});
+		} else {
+			if (resultado.length > 0) {
+				res.status(200).json({
+					resultado,
+					mensagem: `Usuário encontrado com sucesso`
+				});
+			} else {
+				res.status(404).json({
+					resultado,
+					mensagem: `Usuário com ${atributo} = ${valor} não encontrado`
+				});
+			}
+		}
+	});
+}
+
+// Atualiza os dados de um usuário de acordo com o id passado na URL
+exports.atualizarUsuario = (req, res) => {
+	if (req.params.id) {
+		let atributos = Object.keys(Usuario);
+		let query = `UPDATE usuarios SET `;
+
+		atributos.forEach((atributo) => {
+			if (req.body[atributo]) {
+				query += `${atributo} = ${req.body[ atributo ]},`;
+			}
+		});
+
+		// Remove a última vígula da lista de atributos definida no forEach
+		query = query.replace(/,\s*$/, '');
+
+		query += ` WHERE id = ${req.params.id}`;
+
+		conexao.query(query, (erro, resultado) => {
+			if (erro) {
+				res.status(500).json({
+					erro,
+					mensagem: 'Erro ao atualizar usuário'
+				});
+			} else {
+				res.status(200).json({
+					resultado,
+					mensagem: 'Usuário atualizado com sucesso'
+				});
+			}
+		});
+	} else {
+		res.status(404).json({
+			mensagem: 'Id não informado'
+		});
+	}
+}
+
+exports.removerUsuario = (req, res) => {
+	if (req.params.id) {
+		conexao.query(`DELETE FROM usuarios WHERE id = ${req.params.id}`, (erro, resultado) => {
+			if (erro) {
+				res.status(500).json({
+					erro,
+					mensagem: `Erro ao remover usuário`
+				});
+			} else {
+				res.status(200).json({
+					resultado,
+					mensagem: `Usuário removido com sucesso`
+				});
+			}
+		});
+	} else {
+		res.status(404).json({
+			mensagem: 'Id não informado'
+		});
+	}
 }
