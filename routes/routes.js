@@ -30,7 +30,7 @@ router.get('/sair', (req, res) => {
 // Redireciona para as apis dos alunos, disciplinas e notas
 router.use('/api/alunos', verificaAutenticado, alunosRoute);
 router.use('/api/disciplinas', verificaAutenticado, disciplinasRoute);
-router.use('/api/alunodisciplina', verificaAutenticado, alunoDisciplinaRoute);
+router.use('/api/notas', verificaAutenticado, alunoDisciplinaRoute);
 
 // Carrega a página inicial caso esteja logado
 router.get('/', verificaAutenticado, (req, res) => {
