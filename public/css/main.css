@@ -8,6 +8,10 @@
   border-radius: 1rem;
 }
 
+.fade {
+  background: #00000080;
+}
+
 .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.8);
 }
@@ -44,6 +48,10 @@ a:hover,
 
 body {
   font-family: 'Lato', sans-serif;
+}
+
+td, th {
+  vertical-align: middle!important;
 }
 
 tr {

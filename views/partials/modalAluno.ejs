@@ -1,0 +1,47 @@
+<!-- Início do Formulário do Aluno -->
+<form id="form_alunos">
+	<div class="dados_alunos">
+		<div class="form-row">
+			<div class="form-group col">
+				<label for="nome">Nome</label>
+				<input type="text" class="form-control" name="nome" id="nome" required>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col">
+				<label for="cpf">CPF</label>
+				<input type="text" class="form-control" name="cpf" id="cpf" required>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col">
+				<label for="matricula">Matrícula</label>
+				<input type="text" class="form-control" name="matricula" id="matricula" required>
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col">
+				<label for="email">Email</label>
+				<input type="email" class="form-control fone" name="email" id="email" required>
+			</div>
+		</div>
+
+		<div class="form-row justify-content-end text-right">
+			<input type="hidden" name="id" id="id_alunos">
+			<div class="col col-md-auto mt-3">
+				<button type="button" class="btn btn-outline-light btn-block" data-dismiss="modal">
+					Cancelar
+				</button>
+			</div>
+			<div class="col col-md-auto ambos mt-3">
+				<button type="submit" class="btn btn-warning btn-block" id="salvar_alunos">
+					Salvar
+				</button>
+			</div>
+		</div>
+	</div>
+</form>
+<!-- Fim do Formulário do Aluno -->

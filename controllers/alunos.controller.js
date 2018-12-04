@@ -10,7 +10,7 @@ exports.adicionarAluno = (req, res) => {
 
 	let query = `INSERT INTO alunos (${atributos}) VALUES ("${Aluno.matricula}", "${Aluno.nome}", "${Aluno.cpf}", "${Aluno.email}")`;
 
-	// console.log(query)
+	// console.log(query);
 
 	conexao.query(query, (erro, resultado) => {
 		if (erro) {
@@ -92,7 +92,7 @@ exports.atualizarAluno = (req, res) => {
 
 		atributos.forEach((atributo) => {
 			if (req.body[atributo]) {
-				query += `${atributo} = "${req.body[ atributo ]}"`;
+				query += `${atributo} = "${req.body[ atributo ]}", `;
 			}
 		});
 
@@ -100,7 +100,7 @@ exports.atualizarAluno = (req, res) => {
 
 		query += ` WHERE id = ${req.params.id}`;
 
-		// console.log(query)
+		// console.log(query);
 
 		conexao.query(query, (erro, resultado) => {
 			if (erro) {
