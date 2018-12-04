@@ -5,7 +5,8 @@ $(() => {
 	if (pathname === '/alunos' || pathname === '/disciplinas') {
 		montarTabelaPorTipo(tipo);
 	} else if (pathname === '/notas') {
-		montarSeletorDisciplinas();
+		montarSeletorPorTipo('alunos');
+		montarSeletorPorTipo('disciplinas');
 	}
 
 	$(`#adicionar_${tipo}`).on('click', () => {
@@ -16,14 +17,47 @@ $(() => {
 		salvar(tipo);
 		return false;
 	});
-	
+
 });
 
 // Variáveis globais
 const urlBaseApi = `${window.location.origin}/api`;
 let listaJson = null;
 
-montarTabelaPorTipo = (tipo) => {
+function calcularMedia() {
+	let n1 = parseFloat($('#n1').val());
+	let n2 = parseFloat($('#n2').val());
+	let media = (n1 + n2) / 2;
+	$('#media').val(media);
+}
+
+function exibirFormularioNotas() {
+	let idAluno = $('#seletor_alunos').val();
+	let idDisciplina = $('#seletor_disciplinas').val();
+
+	if (idAluno && idDisciplina) {
+		$('#media').val('');
+		$('#n1').val('');
+		$('#n2').val('');
+		$('#editando_notas').val('false');
+		let url = `${urlBaseApi}/notas/idAluno/${idAluno}`;
+		$.get(url, ({resultado}) => {
+			if (resultado) {
+				resultado.forEach(dado => {
+					if (idDisciplina == dado.idDisciplina) {
+						$('#media').val(dado.media);
+						$('#n1').val(dado.n1);
+						$('#n2').val(dado.n2);
+						$('#editando_notas').val('true');
+					}
+				});
+			}
+		});
+		$('#linha_notas').show();
+	}
+}
+
+function montarTabelaPorTipo(tipo) {
 	let url = `${urlBaseApi}/${tipo}`;
 	$(`#tabela_${tipo}`).hide();
 	$(`#carregando_${tipo}`).show();
@@ -69,26 +103,32 @@ montarTabelaPorTipo = (tipo) => {
 	});
 }
 
-montarSeletorDisciplinas = () => {
-	let url = `${urlBaseApi}/disciplinas`;
+function montarSeletorPorTipo(tipo) {
+	let url = `${urlBaseApi}/${tipo}`;
 
 	$.get(url, (resultado) => {
 		if (resultado.resultados) {
 			listaJson = resultado.resultados;
-			let html = '<option disabled selected>Selecione uma disciplina...</option>';
+			let html = '<option disabled selected>Selecione um item...</option>';
 
 			listaJson.forEach((dado) => {
-				html += `
-					<option value="${dado.id}">${dado.codigo} - ${dado.nome}</option>
-				`;
+				if (tipo === 'alunos') {
+					html += `
+						<option value="${dado.id}">${dado.matricula} - ${dado.nome}</option>
+					`;
+				} else if (tipo === 'disciplinas') {
+					html += `
+						<option value="${dado.id}">${dado.codigo} - ${dado.nome}</option>
+					`;
+				}
 			});
 
-			$(`#seletorDisciplina`).html(html);
+			$(`#seletor_${tipo}`).html(html);
 		}
 	});
 }
 
-buscarDadosPorId = (id) => {
+function buscarDadosPorId(id) {
 	let dados = null;
 
 	listaJson.forEach(dado => {
@@ -100,13 +140,13 @@ buscarDadosPorId = (id) => {
 	return dados;
 }
 
-limparFormulario = (tipo) => {
+function limparFormulario(tipo) {
 	$(`.dados_${tipo}`).find('input').each(function () {
 		$(this).val('');
 	});
 }
 
-editar = (tipo, id) => {
+function editar(tipo, id) {
 	let dados = buscarDadosPorId(id);
 
 	if (dados) {
@@ -127,53 +167,72 @@ editar = (tipo, id) => {
 	}
 }
 
-remover = (tipo, id) => {
+function remover(tipo, id) {
 	let url = `${urlBaseApi}/${tipo}/${id}`;
 
 	$.ajax({
 		method: 'DELETE',
 		url: url
 	}).done(function () {
-		montarTabelaPorTipo(tipo);		
+		montarTabelaPorTipo(tipo);
 	}).fail(function () {
 		alert('Erro ao remover');
 	});
 }
 
-salvar = (tipo) => {
+function salvar(tipo) {
 	let url = `${urlBaseApi}/${tipo}`;
 	let dados = {};
 
 	$(`.dados_${tipo}`).find('input').each(function () {
 		let elementoInput = $(this);
 		let elementoName = elementoInput.prop('name');
-		if (elementoInput.val()) {
-			dados[elementoName] = elementoInput.val();
+		if (elementoInput.prop('type') === 'number') {
+			dados[elementoName] = elementoInput.val() ? elementoInput.val() : 0;
+		} else {
+			dados[elementoName] = elementoInput.val() ? elementoInput.val() : '';
 		}
 	});
 
-	// console.log('Dados que serão salvos:', dados);
-	
+	if (tipo === 'notas') {
+	}
+
+
 	let metodo = null;
 	if (dados.id) {
 		metodo = 'PUT';
 		url += `/${dados.id}`;
+	} else if (tipo === 'notas') {
+		dados['idAluno'] = $('#seletor_alunos').val();
+		dados['idDisciplina'] = $('#seletor_disciplinas').val();
+		if ($('#editando_notas').val() == 'true') {
+			metodo = 'PUT';
+			url += `/${dados.idAluno}/${dados.idDisciplina}`;
+		} else {
+			metodo = 'POST';
+		}
 	} else {
 		metodo = 'POST';
 	}
+
+	console.log('Dados que serão salvos:', dados);
 	dados = JSON.stringify(dados);
 
 	$.ajax({
 		method: metodo,
 		url: url,
-		headers: { "Content-Type": "application/json" },
+		headers: {
+			"Content-Type": "application/json"
+		},
 		data: dados
 	}).done(function () {
-		montarTabelaPorTipo(tipo);		
-		$(`#modal_${tipo}`).modal('hide');
-		limparFormulario(tipo);
+		if (tipo !== 'notas') {
+			montarTabelaPorTipo(tipo);
+			$(`#modal_${tipo}`).modal('hide');
+			limparFormulario(tipo);
+		}
 	}).fail(function () {
 		alert('Erro ao salvar');
 	});
-	
+
 }
