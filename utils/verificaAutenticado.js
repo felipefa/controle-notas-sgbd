@@ -4,6 +4,6 @@ module.exports = (req, res, next) => {
 		console.log('Usuario logado: ' + req.user.nome);
 		next();
 	} else {
-		res.redirect('/entrar');
+		res.status(403).redirect('/entrar');
 	}
 }
