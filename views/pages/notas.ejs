@@ -8,45 +8,58 @@
 		<% include ../partials/nav.ejs %>
 	</header>
 
-	<div class="container pt-3 text-white">
-		<h2 class="py-3 text-center">Notas</h2>
+	<main role="main" class="container pt-3 text-white">
+		<h2 class="py-3 text-center">Cadastro de Notas</h2>
 		<div class="card bg-dark shadow-lg">
-			<div class="card-body">
-				<div class="input-group">
-					<select class="custom-select rounded" id="seletorDisciplina" name="seletorDisciplina" aria-label="Seletor de disciplina para visualização das notas">
-						<option disabled selected>Selecione uma disciplina...</option>
-					</select>
-					<div class="input-group-append">
-						<button class="btn btn-outline-warning" type="button">Buscar</button>
-					</div>
-				</div>
-				<p class="card-text my-3 text-center" id="carregando_notas" style="display: none;">Carregando dados...</p>
-				<div class="mt-3" id="tabela_notas" style="display: none;">
-					<div class="row">
-						<div class="col-12 col-md-8 col-lg-6 my-2">
-							<input type="text" class="form-control" id="pesquisar" name="pesquisar" placeholder="Pesquise um nota por nome, matrícula, CPF ou email...">
+			<div class="card-body dados_notas my-3">
+				<form id="form_notas">
+					<div class="form-row">
+						<div class="col-12 col-md-6 form-group ">
+							<label for="seletor_disciplinas">Selecione uma disciplina</label>
+							<select class="custom-select rounded" id="seletor_disciplinas" name="idDisciplina" aria-label="Seletor de disciplina para visualização das notas"
+							 onchange="exibirFormularioNotas()">
+								<option disabled selected>Nenhuma disciplina</option>
+							</select>
 						</div>
-						<div class="col my-2 text-center text-sm-right">
-							<a href="#" class="btn btn-warning">Adicionar Nota</a>
+						<div class="col-12 col-md-6 form-group">
+							<label for="seletor_alunos">Selecione um aluno</label>
+							<select class="custom-select rounded" id="seletor_alunos" name="idAluno" aria-label="Seletor de aluno para visualização das notas"
+							 onchange="exibirFormularioNotas()">
+								<option disabled selected>Nenhum aluno</option>
+							</select>
 						</div>
 					</div>
-					<table class="mt-3 rounded table table-dark table-hover table-responsive-md table-striped">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Nome</th>
-								<th scope="col">Matrícula</th>
-								<th scope="col">CPF</th>
-								<th scope="col">Email</th>
-								<th scope="col"></th>
-							</tr>
-						</thead>
-						<tbody id="tbody_notas"></tbody>
-					</table>
-				</div>
+					<div id="linha_notas" style="display: none;">
+						<div class="form-row">
+							<div class="col form-group">
+								<label for="n1">N1</label>
+								<input type="number" class="form-control" max="10" min="0" name="n1" id="n1" step="0.1" oninput="calcularMedia()">
+							</div>
+							<div class="col form-group">
+								<label for="n2">N2</label>
+								<input type="number" class="form-control" max="10" min="0" name="n2" id="n2" step="0.1" oninput="calcularMedia()">
+							</div>
+							<div class="col form-group">
+								<label for="media">Média</label>
+								<input type="number" class="form-control" max="10" min="0" name="media" id="media" readonly>
+							</div>
+						</div>
+						<p>São válidos valores de 0 a 10 para as notas de N1 e N2.</p>
+						<div class="form-row justify-content-end text-right">
+							<input type="hidden" id="editando_notas" value="false">
+							<div class="col col-md-auto ambos mt-3">
+								<button type="submit" class="btn btn-warning btn-block" id="salvar_notas">
+									Salvar
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-	</div>
+	</main>
+
+	<% include ../partials/footer.ejs %>
 
 	<% include ../partials/js.ejs %>
 </body>
