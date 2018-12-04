@@ -3,12 +3,20 @@ const Aluno = require('../models/alunos.model');
 // Adiciona um novo aluno caso a matrícula e o cpf não existam no banco.
 exports.adicionarAluno = (req, res) => {
 	let atributos = Object.keys(Aluno);
+	let query = `INSERT INTO alunos (${atributos}) VALUES (`;
 
 	atributos.forEach(atributo => {
-		Aluno[atributo] = req.body[atributo];
+		if (req.body[atributo]) {
+			Aluno[atributo] = req.body[atributo];
+			query += `"${Aluno[atributo]}",`;
+		} else {			
+			res.status(400).json({
+				mensagem: `Erro ao adicionar aluno. Atributo ${atributo} não informado.`
+			});
+		}
 	});
-
-	let query = `INSERT INTO alunos (${atributos}) VALUES ("${Aluno.matricula}", "${Aluno.nome}", "${Aluno.cpf}", "${Aluno.email}")`;
+	query = query.replace(/,\s*$/, '');
+	query += ')';
 
 	// console.log(query);
 
