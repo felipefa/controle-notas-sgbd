@@ -8,7 +8,7 @@
     <% include ../partials/nav.ejs %>
   </header>
 
-  <div class="container pt-3 text-white">
+  <main role="main" class="container pt-3 text-white">
     <h2 class="py-3 text-center">Disciplinas</h2>
     <div class="card bg-dark shadow-lg">
       <div class="card-body">
@@ -38,7 +38,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
 
   <div class="modal fade" id="modal_disciplinas" tabindex="-1" role="dialog" aria-labelledby="modal_disciplinas" aria-hidden="true">
     <div class="bg-dark modal-dialog modal-content text-white">
@@ -54,6 +54,8 @@
     </div>
   </div>
 
+	<% include ../partials/footer.ejs %>
+  
   <% include ../partials/js.ejs %>
 </body>
 

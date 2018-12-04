@@ -8,7 +8,7 @@
     <% include ../partials/nav.ejs %>
   </header>
 
-  <div class="container pt-3">
+  <main role="main" class="container pt-3">
     <h2 class="text-center text-white py-3"><%= usuario.nome %>, bem-vind@ ao Sistema de Controle de Notas!</h2>
     <div class="row">
       <div class="col-12 col-md-6 my-3">
@@ -50,7 +50,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </main>
+  
+	<% include ../partials/footer.ejs %>
 
   <% include ../partials/js.ejs %>
 </body>
