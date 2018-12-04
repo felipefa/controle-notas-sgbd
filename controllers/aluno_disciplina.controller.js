@@ -4,22 +4,47 @@ const AlunoDisciplina = require('../models/aluno_disciplina.model');
 exports.adicionarAlunoDisciplina = (req, res) => {
 	let atributos = Object.keys(AlunoDisciplina);
 
-	atributos.forEach(atributo => {
-		AlunoDisciplina[ atributo ] = req.body[ atributo ] ? req.body[ atributo ] : null;
-	});
-
 	let query = `INSERT INTO aluno_disciplina (idAluno, idDisciplina) 
 	SELECT alunos.id, disciplinas.id FROM alunos INNER JOIN disciplinas 
-	WHERE alunos.id = ${AlunoDisciplina.idAluno} 
-	AND disciplinas.id = ${AlunoDisciplina.idDisciplina}`;
+	WHERE alunos.id = ${req.body['idAluno']} 
+	AND disciplinas.id = ${req.body['idDisciplina']}`;
 
-	console.log(query)
+	// console.log(query)
 
 	conexao.query(query, (erro, resultado) => {
 		if (erro) {
-			res.status(500).json({ erro, mensagem: 'Erro ao adicionar em aluno_disciplina' });
+			res.status(500).json({
+				erro,
+				mensagem: 'Erro ao adicionar em aluno_disciplina'
+			});
 		} else {
-			res.status(200).json({ resultado, mensagem: 'aluno_disciplina adicionado com sucesso' });
+			query = `UPDATE aluno_disciplina SET `;
+
+			atributos.forEach((atributo) => {
+				let valor = req.body[atributo] ? req.body[atributo] : 0;
+				query += `${atributo} = ${valor}, `;
+			});
+
+			query = query.replace(/,\s*$/, '');
+
+			query += ` WHERE idAluno = ${req.body['idAluno']} AND idDisciplina = ${req.body['idDisciplina']}`;
+
+			// console.log(query);
+
+			conexao.query(query, (erro, resultado) => {
+				if (erro) {
+					res.status(500).json({
+						erro,
+						mensagem: 'Erro ao atualizar aluno_disciplina'
+					});
+				} else {
+					res.status(200).json({
+						resultado,
+						mensagem: 'aluno_disciplina salvo com sucesso'
+					});
+				}
+			});
+			// res.status(200).json({ resultado, mensagem: 'aluno_disciplina adicionado com sucesso' });
 		}
 	});
 }
@@ -30,11 +55,20 @@ exports.buscarTodosAlunoDisciplina = (req, res) => {
 
 	conexao.query(query, (erro, resultados) => {
 		if (erro) {
-			res.status(500).json({ erro, mensagem: 'Erro ao buscar todos os aluno_disciplina' });
+			res.status(500).json({
+				erro,
+				mensagem: 'Erro ao buscar todos os aluno_disciplina'
+			});
 		} else if (resultados.length > 0) {
-			res.status(200).json({ resultados, mensagem: 'Busca por todos aluno_disciplina realizada com sucesso' });
+			res.status(200).json({
+				resultados,
+				mensagem: 'Busca por todos aluno_disciplina realizada com sucesso'
+			});
 		} else {
-			res.status(404).json({ resultados, mensagem: 'Nenhum aluno_disciplina encontrado' });
+			res.status(404).json({
+				resultados,
+				mensagem: 'Nenhum aluno_disciplina encontrado'
+			});
 		}
 	});
 }
@@ -45,16 +79,25 @@ exports.buscarAlunoDisciplinaPorAtributo = (req, res) => {
 	let atributo = req.params.atributo ? req.params.atributo : 'idAluno';
 	let valor = req.params.valor ? req.params.valor : req.params.atributo;
 	let query = `SELECT * FROM aluno_disciplina WHERE ${atributo} = ${valor}`;
-	
+
 	// console.log(query)
 
 	conexao.query(query, (erro, resultado) => {
 		if (erro) {
-			res.status(500).json({ erro, mensagem: `Erro ao buscar aluno_disciplina por ${atributo}` });
+			res.status(500).json({
+				erro,
+				mensagem: `Erro ao buscar aluno_disciplina por ${atributo}`
+			});
 		} else if (resultado.length > 0) {
-			res.status(200).json({ resultado, mensagem: 'Aluno_disciplina encontrado com sucesso' });
+			res.status(200).json({
+				resultado,
+				mensagem: 'Aluno_disciplina encontrado com sucesso'
+			});
 		} else {
-			res.status(404).json({ resultado, mensagem: 'Nenhum aluno_disciplina encontrado' });
+			res.status(404).json({
+				resultado,
+				mensagem: 'Nenhum aluno_disciplina encontrado'
+			});
 		}
 	});
 }
@@ -65,8 +108,8 @@ exports.atualizarAlunoDisciplina = (req, res) => {
 	let query = `UPDATE aluno_disciplina SET `;
 
 	atributos.forEach((atributo) => {
-		if (req.body[ atributo ]) {
-			query += `${atributo} = ${req.body[ atributo ]},`;
+		if (req.body[atributo] !== 'idAluno' && req.body[atributo] !== 'idDisciplina') {
+			query += `${atributo} = ${req.body[ atributo ]}, `;
 		}
 	});
 
@@ -74,13 +117,21 @@ exports.atualizarAlunoDisciplina = (req, res) => {
 
 	query += ` WHERE idAluno = ${req.params.idAluno} AND idDisciplina = ${req.params.idDisciplina}`;
 
+	// console.log(query);
+
 	conexao.query(query, (erro, resultado) => {
 		if (erro) {
-			res.status(500).json({erro, mensagem: 'Erro ao atualizar aluno_disciplina'});
+			res.status(500).json({
+				erro,
+				mensagem: 'Erro ao atualizar aluno_disciplina'
+			});
 		} else {
-			res.status(200).json({resultado, mensagem: 'aluno_disciplina atualizado com sucesso'});
-		}		
-	});	
+			res.status(200).json({
+				resultado,
+				mensagem: 'aluno_disciplina atualizado com sucesso'
+			});
+		}
+	});
 }
 
 // Remove um aluno de acordo com o id passado na URL
@@ -91,9 +142,15 @@ exports.removerAlunoDisciplina = (req, res) => {
 
 	conexao.query(query, (erro, resultado) => {
 		if (erro) {
-			res.status(500).json({ erro, mensagem: `Erro ao excluir aluno` });
+			res.status(500).json({
+				erro,
+				mensagem: `Erro ao excluir aluno`
+			});
 		} else {
-			res.status(200).json({ resultado, mensagem: `AlunoDisciplina excluído com sucesso` });
+			res.status(200).json({
+				resultado,
+				mensagem: `AlunoDisciplina excluído com sucesso`
+			});
 		}
 	});
 }
