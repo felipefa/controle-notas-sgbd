@@ -42,8 +42,13 @@ router.get('/', verificaAutenticado, (req, res) => {
 // TODO: Criar página de erro 404
 router.get('/:pagina', verificaAutenticado, (req, res) => {
   try {
+    let pagina = req.params.pagina;
     let usuario = req.user ? req.user : {nome: 'Sem usuário'};
-    res.render('pages/' + req.params.pagina, { usuario: usuario });
+    if ((pagina == 'alunos' || pagina == 'disciplinas') && usuario.administrador != 1) {
+		  res.status(403).redirect('/');
+    } else {
+      res.render('pages/' + pagina, { usuario: usuario });
+    }
   } catch (e) {
     res.send(404, 'Página não encontrada: ' + e);
   }

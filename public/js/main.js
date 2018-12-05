@@ -17,7 +17,24 @@ $(() => {
 		salvar(tipo);
 		return false;
 	});
+	
+	$(`#form_usuarios`).submit(() => {
+		salvar('usuarios');
+		return false;
+	});
 
+	let administrador = $('#administrador');
+
+	if (administrador.val() == 1) {
+		administrador.prop('checked', true);
+		$('#nav_alunos').show();
+		$('#nav_disciplinas').show();
+		$('#row_alunos_disciplinas').show();
+	} else {
+		$('#nav_alunos').hide();
+		$('#nav_disciplinas').hide();
+		$('#row_alunos_disciplinas').hide();
+	}
 });
 
 // Variáveis globais
@@ -41,7 +58,9 @@ function exibirFormularioNotas() {
 		$('#n2').val('');
 		$('#editando_notas').val('false');
 		let url = `${urlBaseApi}/notas/idAluno/${idAluno}`;
-		$.get(url, ({resultado}) => {
+		$.get(url, ({
+			resultado
+		}) => {
 			if (resultado) {
 				resultado.forEach(dado => {
 					if (idDisciplina == dado.idDisciplina) {
@@ -187,16 +206,22 @@ function salvar(tipo) {
 	$(`.dados_${tipo}`).find('input').each(function () {
 		let elementoInput = $(this);
 		let elementoName = elementoInput.prop('name');
-		if (elementoInput.prop('type') === 'number') {
+		if (elementoInput.prop('type') === 'checkbox') {
+			if (elementoInput.prop('checked')) {				
+				dados[elementoName] = 1;
+			} else if (elementoName == 'administrador') {
+				dados[elementoName] = 0;
+			}
+		} else if (elementoInput.prop('type') === 'number') {
 			dados[elementoName] = elementoInput.val() ? elementoInput.val() : 0;
 		} else {
 			dados[elementoName] = elementoInput.val() ? elementoInput.val() : '';
 		}
 	});
 
-	if (tipo === 'notas') {
+	if (tipo === 'usuarios') {
+		dados['id'] = $('#idUsuario').val();
 	}
-
 
 	let metodo = null;
 	if (dados.id) {
@@ -215,7 +240,7 @@ function salvar(tipo) {
 		metodo = 'POST';
 	}
 
-	console.log('Dados que serão salvos:', dados);
+	// console.log('Dados que serão salvos:', dados);
 	dados = JSON.stringify(dados);
 
 	$.ajax({
@@ -226,7 +251,9 @@ function salvar(tipo) {
 		},
 		data: dados
 	}).done(function () {
-		if (tipo !== 'notas') {
+		if (tipo === 'usuarios') {
+			location.reload();
+		} else if (tipo !== 'notas') {
 			montarTabelaPorTipo(tipo);
 			$(`#modal_${tipo}`).modal('hide');
 			limparFormulario(tipo);
@@ -234,5 +261,4 @@ function salvar(tipo) {
 	}).fail(function () {
 		alert('Erro ao salvar');
 	});
-
 }

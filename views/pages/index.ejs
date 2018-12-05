@@ -10,7 +10,7 @@
 
   <main role="main" class="container pt-3">
     <h2 class="text-center text-white py-3"><%= usuario.nome %>, bem-vind@ ao Sistema de Controle de Notas!</h2>
-    <div class="row">
+    <div class="row" id="row_alunos_disciplinas" style="display: none;">
       <div class="col-12 col-md-6 my-3">
         <div class="card text-white bg-dark shadow-lg">
           <div class="card-body">
@@ -35,7 +35,7 @@
         <div class="card text-white bg-dark shadow-lg">
           <div class="card-body">
             <h5 class="card-title">Notas</h5>
-            <p class="card-text">Gerencie as notas de cada aluno.<br>Aqui é possível adicionar, editar, consultar e remover notas.</p>
+            <p class="card-text">Gerencie as notas de cada aluno.<br>Aqui é possível adicionar, editar e consultar notas.</p>
             <a href="/notas" class="btn btn-warning">Mais detalhes</a>
           </div>
         </div>
@@ -44,13 +44,15 @@
         <div class="card text-white bg-dark shadow-lg">
           <div class="card-body">
             <h5 class="card-title">Relatórios</h5>
-            <p class="card-text">Gere relatórios relacionados aos alunos, suas disciplinas e respectivas notas.</p>
+            <p class="card-text">Gere relatórios relacionados a todas as notas ou apenas de uma disciplina específica selecionada.</p>
             <a href="/relatorios" class="btn btn-warning">Mais detalhes</a>
           </div>
         </div>
       </div>
     </div>
   </main>
+
+	<% include ../partials/modalPerfil.ejs %>
   
 	<% include ../partials/footer.ejs %>
 

@@ -4,4 +4,5 @@ module.exports = {
 	'sobrenome': String,
 	'email': String,
 	'senha': String,
+	'administrador': String
 };

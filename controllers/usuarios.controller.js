@@ -119,15 +119,14 @@ exports.atualizarUsuario = (req, res) => {
 		let query = `UPDATE usuarios SET `;
 
 		atributos.forEach((atributo) => {
-			if (req.body[atributo]) {
-				query += `${atributo} = ${req.body[ atributo ]},`;
+			if (req.body[atributo] || atributo == 'administrador') {
+				query += `${atributo} = "${req.body[ atributo ]}", `;
 			}
 		});
-
 		// Remove a última vígula da lista de atributos definida no forEach
 		query = query.replace(/,\s*$/, '');
-
 		query += ` WHERE id = ${req.params.id}`;
+		// console.log(query);
 
 		conexao.query(query, (erro, resultado) => {
 			if (erro) {
