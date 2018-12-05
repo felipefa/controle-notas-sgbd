@@ -134,7 +134,7 @@ function gerarRelatorio(tipo) {
 								content: [conteudoRelatorio]
 							};
 
-							pdfMake.createPdf(relatorio).open();
+							pdfMake.createPdf(relatorio).download(`relatorio_de_notas_${tipo}.pdf`);
 						}
 					});
 				}
