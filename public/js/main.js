@@ -7,6 +7,8 @@ $(() => {
 	} else if (pathname === '/notas') {
 		montarSeletorPorTipo('alunos');
 		montarSeletorPorTipo('disciplinas');
+	} else if (pathname === '/relatorios') {
+		montarSeletorPorTipo('disciplinas');
 	}
 
 	$(`#adicionar_${tipo}`).on('click', () => {
@@ -17,7 +19,7 @@ $(() => {
 		salvar(tipo);
 		return false;
 	});
-	
+
 	$(`#form_usuarios`).submit(() => {
 		salvar('usuarios');
 		return false;
@@ -40,6 +42,106 @@ $(() => {
 // Variáveis globais
 const urlBaseApi = `${window.location.origin}/api`;
 let listaJson = null;
+
+function gerarRelatorio(tipo) {
+	let notas = null;
+	let alunos = null;
+	let disciplinas = null;
+
+	$.get(`${urlBaseApi}/disciplinas`, ({resultados}) => {
+		if (resultados) {
+			disciplinas = resultados;
+
+			$.get(`${urlBaseApi}/notas`, ({resultados}) => {
+				if (resultados) {
+					notas = resultados;
+
+					$.get(`${urlBaseApi}/alunos`, ({resultados}) => {
+						if (resultados) {
+							alunos = resultados;
+
+							let conteudoRelatorio = [];
+							conteudoRelatorio.push({
+									text: 'Controle de Notas - SGBD',
+									fontSize: 18,
+									bold: true,
+									margin: [0, 20, 0, 8]
+								},
+								'Relatório gerado pelo Sistema de Controle de Notas N1 e N2.');
+
+							disciplinas.forEach(disciplina => {
+								if (tipo == 'geral' ||
+									($('#seletor_disciplinas').val() == disciplina.id && tipo == 'disciplina')) {
+									let nomeDisciplina = {
+										text: `${disciplina.codigo} - ${disciplina.nome}`,
+										fontSize: 14,
+										bold: true,
+										margin: [0, 20, 0, 8]
+									};
+
+									let bodyTabela = [];
+									bodyTabela.push(
+										[{
+											text: 'Matrícula',
+											style: 'tableHeader'
+										}, {
+											text: 'Aluno',
+											style: 'tableHeader'
+										}, {
+											text: 'N1',
+											style: 'tableHeader'
+										}, {
+											text: 'N2',
+											style: 'tableHeader'
+										}, {
+											text: 'Média',
+											style: 'tableHeader'
+										}]
+									);
+
+									notas.forEach(nota => {
+										if ((disciplina.id == nota.idDisciplina && tipo == 'geral') ||
+											($('#seletor_disciplinas').val() == nota.idDisciplina && tipo == 'disciplina')) {
+											let linha = [];
+											alunos.forEach(aluno => {
+												if (aluno.id == nota.idAluno) {
+													linha.push(aluno.matricula);
+													linha.push(aluno.nome);
+												}
+											});
+											linha.push(nota.n1 ? nota.n1 : '-');
+											linha.push(nota.n2 ? nota.n2 : '-');
+											linha.push(nota.media ? nota.media : '-');
+											bodyTabela.push(linha);
+										}
+									});
+
+									let tabela = {
+										style: 'tableExample',
+										table: {
+											widths: ['25%', '45%', '10%', '10%', '10%'],
+											headerRows: 1,
+											body: bodyTabela
+										},
+										layout: 'lightHorizontalLines'
+									}
+									conteudoRelatorio.push(nomeDisciplina);
+									conteudoRelatorio.push(tabela);
+								}
+							});
+
+							let relatorio = {
+								content: [conteudoRelatorio]
+							};
+
+							pdfMake.createPdf(relatorio).open();
+						}
+					});
+				}
+			});
+		}
+	});
+}
 
 function calcularMedia() {
 	let n1 = parseFloat($('#n1').val());
@@ -207,7 +309,7 @@ function salvar(tipo) {
 		let elementoInput = $(this);
 		let elementoName = elementoInput.prop('name');
 		if (elementoInput.prop('type') === 'checkbox') {
-			if (elementoInput.prop('checked')) {				
+			if (elementoInput.prop('checked')) {
 				dados[elementoName] = 1;
 			} else if (elementoName == 'administrador') {
 				dados[elementoName] = 0;

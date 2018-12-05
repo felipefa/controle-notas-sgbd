@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<% include ../partials/head.ejs %>
+
+<body class="bg-secondary">
+	<header>
+		<% include ../partials/nav.ejs %>
+	</header>
+
+	<main role="main" class="container pt-3 text-white">
+		<h2 class="py-3 text-center">Relatórios</h2>
+		<div class="card bg-dark shadow-lg">
+			<div class="card-body dados_relatorios my-3">
+				<div class="row">
+					<div class="col">
+						<p>Selecione uma disciplina para gerar seu relatório de notas.</p>
+						<div class="input-group">
+							<select class="custom-select" id="seletor_disciplinas" aria-label="Seletor de disciplina para geração de relatório">
+								<option selected>Nenhuma disciplina encontrada</option>
+							</select>
+							<div class="input-group-append">
+								<button type="button" class="btn btn-outline-warning" onclick="gerarRelatorio('disciplina')">Gerar</button>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<p>Gere um relatório das notas de todas as disciplinas.</p>
+						<button type="button" class="btn btn-block btn-warning" onclick="gerarRelatorio('geral')">Gerar Relatório</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<% include ../partials/modalPerfil.ejs %>
+
+	<% include ../partials/footer.ejs %>
+
+	<% include ../partials/js.ejs %>
+
+	<script src='/js/pdfmake.min.js'></script>
+	<script src='/js/vfs_fonts.js'></script>
+</body>
+
+</html>
