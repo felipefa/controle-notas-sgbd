@@ -1,47 +1,49 @@
 <div class="modal fade" id="modal_usuarios" tabindex="-1" role="dialog" aria-labelledby="modal_usuarios" aria-hidden="true">
-	<div class="bg-dark modal-dialog modal-content text-white">
-		<div class="modal-header">
-			<h5 class="modal-title" id="modal_titulo_usuarios">Editar Perfil</h5>
-			<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<input type="hidden" name="idUsuario" id="idUsuario" value="<%= usuario.id %>">
-		<div class="dados_usuarios modal-body bg-dark text-white">
-			<form id="form_usuarios">
-				<div class="row">
-					<div class="form-group col">
-						<label for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome" name="nome" required value="<%= usuario.nome %>">
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col">
-						<label for="sobrenome">Sobrenome</label>
-						<input type="text" class="form-control" id="sobrenome" name="sobrenome" required value="<%= usuario.sobrenome %>">
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col">
-						<label for="email">E-mail</label>
-						<input type="email" class="form-control" id="email" name="email" required value="<%= usuario.email %>">
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col">
-						<label for="administrador">Tipo de Perfil</label>
-						<div class="form-check">
-							<input class="form-check-input" type="checkbox" id="administrador" name="administrador" value="<%= usuario.administrador %>">
-							<label class="form-check-label" for="administrador">Administrador</label>
+	<div class="modal-dialog">
+		<div class="bg-dark modal-content text-white">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_titulo_usuarios">Editar Perfil</h5>
+				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<input type="hidden" name="idUsuario" id="idUsuario" value="<%= usuario.id %>">
+			<div class="dados_usuarios modal-body bg-dark text-white">
+				<form id="form_usuarios">
+					<div class="row">
+						<div class="form-group col">
+							<label for="nome">Nome</label>
+							<input type="text" class="form-control" id="nome" name="nome" maxlength="50" required value="<%= usuario.nome %>">
 						</div>
 					</div>
-				</div>
-				<div class="mt-3 row text-center">
-					<div class="col">
-						<button type="submit" class="btn btn-block btn-warning">Salvar</button>
+					<div class="row">
+						<div class="form-group col">
+							<label for="sobrenome">Sobrenome</label>
+							<input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="100" required value="<%= usuario.sobrenome %>">
+						</div>
 					</div>
-				</div>
-			</form>
+					<div class="row">
+						<div class="form-group col">
+							<label for="email">E-mail</label>
+							<input type="email" class="form-control" id="email" name="email" maxlength="100" required value="<%= usuario.email %>">
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col">
+							<label for="administrador">Tipo de Perfil</label>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" id="administrador" name="administrador" value="<%= usuario.administrador %>">
+								<label class="form-check-label" for="administrador">Administrador</label>
+							</div>
+						</div>
+					</div>
+					<div class="mt-3 row text-center">
+						<div class="col">
+							<button type="submit" class="btn btn-block btn-warning">Salvar</button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

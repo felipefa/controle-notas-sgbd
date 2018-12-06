@@ -8,20 +8,26 @@
     <% include ../partials/nav.ejs %>
   </header>
 
-  <main role="main" class="container pt-3 text-white">
+  <main role="main" class="container py-3 text-white">
     <h2 class="py-3 text-center">Alunos</h2>
     <div class="card bg-dark shadow-lg">
       <div class="card-body">
         <p class="card-text my-3 text-center" id="carregando_alunos">Carregando dados...</p>
-        <p class="card-text my-3 text-center" id="sem_aluno" style="display: none;">Nenhum aluno encontrado. <a href="#">Clique
+        <p class="card-text my-3 text-center" id="sem_alunos" style="display: none;">Nenhum aluno encontrado. <a href="#"
+            id="adicionar_alunos_link">Clique
             aqui</a> para adicionar um aluno.</p>
         <div class="mt-3" id="tabela_alunos" style="display: none;">
           <div class="row">
-            <div class="col-12 col-md-8 col-lg-6 my-2">
-              <input type="text" class="form-control" id="pesquisar" name="pesquisar" placeholder="Pesquise um aluno por nome, matrícula, CPF ou email...">
+            <div class="col-12 col-md-9 col-lg-7 my-2">
+              <div class="input-group">
+                <input type="text" class="form-control" id="buscar" name="buscar" placeholder="Busque um aluno por nome, matrícula, CPF ou email...">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-warning" type="button" onclick="buscar('alunos')">Buscar</button>
+                </div>
+              </div>
             </div>
-            <div class="col my-2 text-center text-sm-right">
-              <button type="button" class="btn btn-warning" id="adicionar_alunos">Adicionar Aluno</button>
+            <div class="col my-2 text-sm-right">
+              <button type="button" class="btn btn-custom btn-warning" id="adicionar_alunos">Adicionar Aluno</button>
             </div>
           </div>
           <table class="mt-3 rounded table table-dark table-hover table-responsive-md table-striped">
@@ -37,28 +43,18 @@
             </thead>
             <tbody id="tbody_alunos"></tbody>
           </table>
+          <p class="card-text my-3 text-center" id="sem_alunos_busca" style="display: none;">Nenhum aluno encontrado na
+            busca. Informe outro dado.</p>
         </div>
       </div>
     </div>
   </main>
 
-  <div class="modal fade" id="modal_alunos" tabindex="-1" role="dialog" aria-labelledby="modal_alunos" aria-hidden="true">
-    <div class="bg-dark modal-dialog modal-content text-white">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modal_titulo_alunos">Formulário do Aluno</h5>
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <% include ../partials/modalAluno.ejs %>
-      </div>
-    </div>
-  </div>
+  <% include ../partials/modalAluno.ejs %>
 
-	<% include ../partials/modalPerfil.ejs %>
-  
-	<% include ../partials/footer.ejs %>
+  <% include ../partials/modalPerfil.ejs %>
+
+  <% include ../partials/footer.ejs %>
 
   <% include ../partials/js.ejs %>
 </body>

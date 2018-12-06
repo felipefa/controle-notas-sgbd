@@ -1,47 +1,61 @@
-<!-- Início do Formulário do Aluno -->
-<form id="form_alunos">
-	<div class="dados_alunos">
-		<div class="form-row">
-			<div class="form-group col">
-				<label for="nome">Nome</label>
-				<input type="text" class="form-control" name="nome" id="nome" required>
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form-group col">
-				<label for="cpf">CPF</label>
-				<input type="text" class="form-control" name="cpf" id="cpf" required>
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form-group col">
-				<label for="matricula">Matrícula</label>
-				<input type="text" class="form-control" name="matricula" id="matricula" required>
-			</div>
-		</div>
-
-		<div class="form-row">
-			<div class="form-group col">
-				<label for="email">Email</label>
-				<input type="email" class="form-control fone" name="email" id="email" required>
-			</div>
-		</div>
-
-		<div class="form-row justify-content-end text-right">
-			<input type="hidden" name="id" id="id_alunos">
-			<div class="col col-md-auto mt-3">
-				<button type="button" class="btn btn-outline-light btn-block" data-dismiss="modal">
-					Cancelar
+<div class="modal fade" id="modal_alunos" tabindex="-1" role="dialog" aria-labelledby="modal_alunos" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="bg-dark modal-content text-white">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modal_titulo_alunos">Formulário do Aluno</h5>
+				<button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="col col-md-auto ambos mt-3">
-				<button type="submit" class="btn btn-warning btn-block" id="salvar_alunos">
-					Salvar
-				</button>
+			<div class="modal-body">
+				<!-- Início do Formulário do Aluno -->
+				<form id="form_alunos">
+					<div class="dados_alunos">
+						<div class="form-row">
+							<div class="form-group col">
+								<label for="nome">Nome</label>
+								<input type="text" class="form-control" name="nome" id="nome" maxlength="255" required>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col">
+								<label for="cpf">CPF</label>
+								<input type="text" class="form-control" name="cpf" id="cpf" maxlength="11" required>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col">
+								<label for="matricula">Matrícula</label>
+								<input type="text" class="form-control" name="matricula" id="matricula" maxlength="14" required>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group col">
+								<label for="email">Email</label>
+								<input type="email" class="form-control fone" name="email" id="email" maxlength="100" required>
+							</div>
+						</div>
+
+						<div class="form-row justify-content-end text-right">
+							<input type="hidden" name="id" id="id_alunos">
+							<div class="col col-md-auto mt-3">
+								<button type="button" class="btn btn-outline-light btn-block" data-dismiss="modal">
+									Cancelar
+								</button>
+							</div>
+							<div class="col col-md-auto ambos mt-3">
+								<button type="submit" class="btn btn-warning btn-block" id="salvar_alunos">
+									Salvar
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- Fim do Formulário do Aluno -->
 			</div>
 		</div>
 	</div>
-</form>
-<!-- Fim do Formulário do Aluno -->
+</div>

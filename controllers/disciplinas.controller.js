@@ -5,7 +5,7 @@ exports.adicionarDisciplina = (req, res) => {
 	let atributos = Object.keys(Disciplina);
 
 	atributos.forEach(atributo => {
-		Disciplina[ atributo ] = req.body[ atributo ];
+		Disciplina[atributo] = req.body[atributo];
 	});
 
 	let query = `INSERT INTO disciplinas (${atributos}) VALUES ("${Disciplina.codigo}", "${Disciplina.nome}")`;
@@ -14,9 +14,15 @@ exports.adicionarDisciplina = (req, res) => {
 
 	conexao.query(query, (erro, resultado) => {
 		if (erro) {
-			res.status(500).json({ erro, mensagem: 'Erro ao adicionar disciplina' });
+			res.status(500).json({
+				erro,
+				mensagem: 'Erro ao adicionar disciplina'
+			});
 		} else {
-			res.status(200).json({ resultado, mensagem: 'Disciplina adicionada com sucesso' });
+			res.status(200).json({
+				resultado,
+				mensagem: 'Disciplina adicionada com sucesso'
+			});
 		}
 	});
 }
@@ -27,9 +33,15 @@ exports.buscarTodosDisciplinas = (req, res) => {
 
 	conexao.query(query, (erro, resultados) => {
 		if (erro) {
-			res.status(500).json({ erro, mensagem: 'Erro ao buscar todas as disciplinas' });
+			res.status(500).json({
+				erro,
+				mensagem: 'Erro ao buscar todas as disciplinas'
+			});
 		}
-		res.status(200).json({ resultados, mensagem: 'Busca por todas as disciplinas realizada com sucesso' });
+		res.status(200).json({
+			resultados,
+			mensagem: 'Busca por todas as disciplinas realizada com sucesso'
+		});
 	});
 }
 
@@ -51,57 +63,92 @@ exports.buscarDisciplinaPorAtributo = (req, res) => {
 	conexao.query(query, (erro, resultado) => {
 		let mensagem = '';
 		if (erro) {
-			res.status(500).json({ erro, mensagem: `Erro ao buscar disciplina por ${atributo}` });
+			res.status(500).json({
+				erro,
+				mensagem: `Erro ao buscar disciplina por ${atributo}`
+			});
 		} else {
 			if (resultado.length <= 0) {
 				mensagem = 'Nenhuma disciplina encontrada';
 			} else {
 				mensagem = 'Disciplina encontrada com sucesso';
 			}
-			res.status(200).json({ resultado, mensagem: mensagem });
+			res.status(200).json({
+				resultado,
+				mensagem: mensagem
+			});
 		}
 	});
 }
 
 // Atualiza os dados de uma disciplina de acordo com o id passado na URL
-// TODO: verficar quais dados foram alterados antes de fazer update para evitar erro de coluna unica de codigo da disciplina 
 exports.atualizarDisciplina = (req, res) => {
-	let atributos = Object.keys(Disciplina);
-	let query = `UPDATE disciplinas SET `;
+	if (req.params.id) {
+		let atributos = Object.keys(Disciplina);
+		let query = `UPDATE disciplinas SET `;
 
-	atributos.forEach((atributo, index) => {
-		if (req.body[ atributo ]) {
-			query += `${atributo} = "${req.body[ atributo ]}"`;
-			if (index < atributos.length - 1) {
-				query += ',';
+		atributos.forEach((atributo) => {
+			if (req.body[atributo]) {
+				query += `${atributo} = "${req.body[ atributo ]}", `;
 			}
-		}
-	});
+		});
+		query = query.replace(/,\s*$/, '');
+		query += ` WHERE id = ${req.params.id}`;
 
-	query += ` WHERE id = ${req.params.id}`;
+		//console.log(query)
 
-	//console.log(query)
-
-	conexao.query(query, (erro, resultado) => {
-		if (erro) {
-			res.status(500).json({erro, mensagem: 'Erro ao atualizar disciplina'});
-		} else {
-			res.status(200).json({resultado, mensagem: 'Disciplina atualizada com sucesso'});
-		}		
-	});	
+		conexao.query(query, (erro, resultado) => {
+			if (erro) {
+				res.status(500).json({
+					erro,
+					mensagem: 'Erro ao atualizar disciplina'
+				});
+			} else {
+				res.status(200).json({
+					resultado,
+					mensagem: 'Disciplina atualizada com sucesso'
+				});
+			}
+		});
+	} else {
+		res.status(404).json({
+			mensagem: 'Id não informado'
+		});
+	}
 }
 
 // Remove uma disciplina de acordo com o id passado na URL
 exports.removerDisciplina = (req, res) => {
-	let query = `DELETE FROM disciplinas WHERE id = ${req.params.id}`;
+	if (req.params.id) {
+		let query = `DELETE FROM disciplinas WHERE id = ${req.params.id}`;
+		let queryAlunoDisciplina = `DELETE FROM aluno_disciplina WHERE idDisciplina = ${req.params.id}`;
 
-	//console.log(query)
+		conexao.query(queryAlunoDisciplina, (erro, resultado) => {
+			if (erro) {
+				console.log(`Erro ao remover notas associadas a disciplina com id = ${req.params.id}`, erro);
+			} else {
+				console.log(`Notas associadas a disciplina com id = ${req.params.id}, removidas com sucesso!`);
+			}
+		});
 
-	conexao.query(query, (erro, resultado) => {
-		if (erro) {
-			res.status(500).json({ erro, mensagem: `Erro ao excluir disciplina` });
-		} else {
-			res.status(200).json({ resultado, mensagem: `Disciplina excluída com sucesso` });
-		}
-	});
+		conexao.query(query, (erro, resultado) => {
+			if (erro) {
+				console.log(`Erro ao remover disciplina com id = ${req.params.id}`, erro);
+				res.status(500).json({
+					erro,
+					mensagem: `Erro ao excluir disciplina`
+				});
+			} else {
+				console.log(`Disciplina com id = ${req.params.id} removida com sucesso!`);
+				res.status(200).json({
+					resultado,
+					mensagem: `Disciplina excluída com sucesso`
+				});
+			}
+		});
+	} else {
+		res.status(404).json({
+			mensagem: 'Id não informado'
+		});
+	}
 }

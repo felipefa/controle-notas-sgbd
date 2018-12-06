@@ -4,6 +4,12 @@ $(() => {
 
 	if (pathname === '/alunos' || pathname === '/disciplinas') {
 		montarTabelaPorTipo(tipo);
+
+		$('#buscar').on('keypress', function (e) {
+			if (e.keyCode === 13) {
+				buscar(tipo);
+			}
+		});
 	} else if (pathname === '/notas') {
 		montarSeletorPorTipo('alunos');
 		montarSeletorPorTipo('disciplinas');
@@ -11,7 +17,13 @@ $(() => {
 		montarSeletorPorTipo('disciplinas');
 	}
 
+	$(`#adicionar_${tipo}_link`).on('click', () => {
+		limparFormulario(tipo);
+		$(`#modal_${tipo}`).modal('show');
+	});
+
 	$(`#adicionar_${tipo}`).on('click', () => {
+		limparFormulario(tipo);
 		$(`#modal_${tipo}`).modal('show');
 	});
 
@@ -43,104 +55,152 @@ $(() => {
 const urlBaseApi = `${window.location.origin}/api`;
 let listaJson = null;
 
+function buscar(tipo) {
+	if (listaJson) {
+		let resultados = [];
+		let buscar = $('#buscar').val().toUpperCase();
+
+		listaJson.forEach(dado => {
+			if (tipo === 'alunos') {
+				if (dado.nome.toUpperCase().indexOf(buscar) > -1 ||
+					dado.matricula.toUpperCase().indexOf(buscar) > -1 ||
+					dado.cpf.toUpperCase().indexOf(buscar) > -1 ||
+					dado.email.toUpperCase().indexOf(buscar) > -1) {
+					resultados.push(dado);
+				}
+			} else if (tipo === 'disciplinas') {
+				if (dado.nome.toUpperCase().indexOf(buscar) > -1 ||
+					dado.codigo.toUpperCase().indexOf(buscar) > -1) {
+					resultados.push(dado);
+				}
+			}
+		});
+
+		if (resultados.length > 0) {
+			$(`#sem_${tipo}_busca`).hide();
+		} else {
+			$(`#sem_${tipo}_busca`).show();
+		}
+		montarTabelaPorTipo(tipo, resultados);
+	}
+}
+
 function gerarRelatorio(tipo) {
 	let notas = null;
 	let alunos = null;
 	let disciplinas = null;
+	let idDisciplina = $('#seletor_disciplinas').val();
 
-	$.get(`${urlBaseApi}/disciplinas`, ({resultados}) => {
-		if (resultados) {
-			disciplinas = resultados;
+	if (tipo == 'geral' ||
+		(idDisciplina && tipo == 'disciplina')) {
+		$.get(`${urlBaseApi}/disciplinas`, ({resultados}) => {
+			if (resultados.length > 0) {
+				disciplinas = resultados;
 
-			$.get(`${urlBaseApi}/notas`, ({resultados}) => {
-				if (resultados) {
-					notas = resultados;
+				$.get(`${urlBaseApi}/notas`, ({resultados}) => {
+					if (resultados.length > 0) {
+						notas = resultados;
 
-					$.get(`${urlBaseApi}/alunos`, ({resultados}) => {
-						if (resultados) {
-							alunos = resultados;
+						$.get(`${urlBaseApi}/alunos`, ({resultados}) => {
+							if (resultados.length > 0) {
+								alunos = resultados;
 
-							let conteudoRelatorio = [];
-							conteudoRelatorio.push({
-									text: 'Controle de Notas - SGBD',
-									fontSize: 18,
-									bold: true,
-									margin: [0, 20, 0, 8]
-								},
-								'Relatório gerado pelo Sistema de Controle de Notas N1 e N2.');
-
-							disciplinas.forEach(disciplina => {
-								if (tipo == 'geral' ||
-									($('#seletor_disciplinas').val() == disciplina.id && tipo == 'disciplina')) {
-									let nomeDisciplina = {
-										text: `${disciplina.codigo} - ${disciplina.nome}`,
-										fontSize: 14,
+								let conteudoRelatorio = [];
+								conteudoRelatorio.push({
+										text: 'Controle de Notas - SGBD',
+										fontSize: 18,
 										bold: true,
 										margin: [0, 20, 0, 8]
-									};
+									},
+									'Relatório gerado pelo Sistema de Controle de Notas N1 e N2.');
 
-									let bodyTabela = [];
-									bodyTabela.push(
-										[{
-											text: 'Matrícula',
-											style: 'tableHeader'
-										}, {
-											text: 'Aluno',
-											style: 'tableHeader'
-										}, {
-											text: 'N1',
-											style: 'tableHeader'
-										}, {
-											text: 'N2',
-											style: 'tableHeader'
-										}, {
-											text: 'Média',
-											style: 'tableHeader'
-										}]
-									);
+								disciplinas.forEach(disciplina => {
+									if (tipo == 'geral' ||
+										(idDisciplina == disciplina.id && tipo == 'disciplina')) {
+										let nomeDisciplina = {
+											text: `${disciplina.codigo} - ${disciplina.nome}`,
+											fontSize: 14,
+											bold: true,
+											margin: [0, 20, 0, 8]
+										};
 
-									notas.forEach(nota => {
-										if ((disciplina.id == nota.idDisciplina && tipo == 'geral') ||
-											($('#seletor_disciplinas').val() == nota.idDisciplina && tipo == 'disciplina')) {
-											let linha = [];
-											alunos.forEach(aluno => {
-												if (aluno.id == nota.idAluno) {
-													linha.push(aluno.matricula);
-													linha.push(aluno.nome);
-												}
-											});
-											linha.push(nota.n1 ? nota.n1 : '-');
-											linha.push(nota.n2 ? nota.n2 : '-');
-											linha.push(nota.media ? nota.media : '-');
-											bodyTabela.push(linha);
+										let bodyTabela = [];
+										bodyTabela.push(
+											[{
+												text: 'Matrícula',
+												style: 'tableHeader'
+											}, {
+												text: 'Aluno',
+												style: 'tableHeader'
+											}, {
+												text: 'N1',
+												style: 'tableHeader'
+											}, {
+												text: 'N2',
+												style: 'tableHeader'
+											}, {
+												text: 'Média',
+												style: 'tableHeader'
+											}]
+										);
+
+										notas.forEach(nota => {
+											if ((disciplina.id == nota.idDisciplina && tipo == 'geral') ||
+												($('#seletor_disciplinas').val() == nota.idDisciplina && tipo == 'disciplina')) {
+												let linha = [];
+												alunos.forEach(aluno => {
+													if (aluno.id == nota.idAluno) {
+														linha.push(aluno.matricula);
+														linha.push(aluno.nome);
+													}
+												});
+												linha.push(nota.n1 ? nota.n1 : '-');
+												linha.push(nota.n2 ? nota.n2 : '-');
+												linha.push(nota.media ? nota.media : '-');
+												bodyTabela.push(linha);
+											}
+										});
+
+										let tabela = {
+											style: 'tableExample',
+											table: {
+												widths: ['25%', '55%', '5%', '5%', '10%'],
+												headerRows: 1,
+												body: bodyTabela
+											},
+											layout: 'lightHorizontalLines'
 										}
-									});
-
-									let tabela = {
-										style: 'tableExample',
-										table: {
-											widths: ['25%', '45%', '10%', '10%', '10%'],
-											headerRows: 1,
-											body: bodyTabela
-										},
-										layout: 'lightHorizontalLines'
+										conteudoRelatorio.push(nomeDisciplina);
+										conteudoRelatorio.push(tabela);
 									}
-									conteudoRelatorio.push(nomeDisciplina);
-									conteudoRelatorio.push(tabela);
-								}
-							});
+								});
 
-							let relatorio = {
-								content: [conteudoRelatorio]
-							};
+								let relatorio = {
+									content: [conteudoRelatorio]
+								};
 
-							pdfMake.createPdf(relatorio).download(`relatorio_de_notas_${tipo}.pdf`);
-						}
-					});
-				}
-			});
-		}
-	});
+								pdfMake.createPdf(relatorio).download(`relatorio_de_notas_${tipo}.pdf`);
+							} else {
+								alert('Nenhum aluno encontrado');
+							}
+						}).fail(function() {
+							alert('Erro ao buscar alunos');
+						});
+					} else {
+						alert('Nenhuma nota encontrada');
+					}
+				}).fail(function() {
+					alert('Erro ao buscar notas');
+				});
+			} else {
+				alert('Nenhuma disciplina encontrada');
+			}
+		}).fail(function() {
+			alert('Erro ao buscar disciplinas');
+		});
+	} else {
+		alert('Selecione uma disciplina para gerar seu relatório de notas');
+	}
 }
 
 function calcularMedia() {
@@ -178,58 +238,75 @@ function exibirFormularioNotas() {
 	}
 }
 
-function montarTabelaPorTipo(tipo) {
-	let url = `${urlBaseApi}/${tipo}`;
+function gerarHtmlLinhasTabela(tipo, dados) {
+	let html = '';
+
+	dados.forEach((dado, index) => {
+		if (tipo === 'alunos') {
+			html += `
+				<tr>
+					<th onClick="editar('${tipo}', ${dado.id})" scope="row">${index+1}</th>
+					<td onClick="editar('${tipo}', ${dado.id})">${dado.nome}</td>
+					<td onClick="editar('${tipo}', ${dado.id})">${dado.matricula}</td>
+					<td onClick="editar('${tipo}', ${dado.id})">${dado.cpf}</td>
+					<td onClick="editar('${tipo}', ${dado.id})">${dado.email}</td>
+					<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
+				</tr>
+			`;
+		} else if (tipo === 'disciplinas') {
+			html += `
+				<tr>
+					<th onClick="editar('${tipo}', ${dado.id})" scope="row">${index+1}</th>
+					<td onClick="editar('${tipo}', ${dado.id})">${dado.codigo}</td>
+					<td onClick="editar('${tipo}', ${dado.id})">${dado.nome}</td>
+					<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
+				</tr>
+			`;
+		}
+	});
+
+	return html;
+}
+
+function montarTabelaPorTipo(tipo, dados) {
 	$(`#tabela_${tipo}`).hide();
 	$(`#carregando_${tipo}`).show();
+	$(`#sem_${tipo}`).hide();
 
-	$.get(url, (resultado) => {
-		if (resultado.resultados) {
-			listaJson = resultado.resultados;
-			let html = '';
+	if (dados) {
+		let html = gerarHtmlLinhasTabela(tipo, dados);
+		$(`#tbody_${tipo}`).html(html);
+		$(`#tabela_${tipo}`).show();
+	} else {
+		let url = `${urlBaseApi}/${tipo}`;
 
-			listaJson.forEach((dado, index) => {
-				if (tipo === 'alunos') {
-					html += `
-						<tr>
-							<th onClick="editar('${tipo}', ${dado.id})" scope="row">${index+1}</th>
-							<td onClick="editar('${tipo}', ${dado.id})">${dado.nome}</td>
-							<td onClick="editar('${tipo}', ${dado.id})">${dado.matricula}</td>
-							<td onClick="editar('${tipo}', ${dado.id})">${dado.cpf}</td>
-							<td onClick="editar('${tipo}', ${dado.id})">${dado.email}</td>
-							<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
-						</tr>
-					`;
-				} else if (tipo === 'disciplinas') {
-					html += `
-						<tr>
-							<th onClick="editar('${tipo}', ${dado.id})" scope="row">${index+1}</th>
-							<td onClick="editar('${tipo}', ${dado.id})">${dado.codigo}</td>
-							<td onClick="editar('${tipo}', ${dado.id})">${dado.nome}</td>
-							<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
-						</tr>
-					`;
-				}
-			});
-
-			$(`#tbody_${tipo}`).html(html);
-			$(`#tabela_${tipo}`).show();
-		} else {
+		$.get(url, ({
+			resultados
+		}) => {
+			if (resultados.length > 0) {
+				listaJson = resultados;
+				let html = gerarHtmlLinhasTabela(tipo, resultados);
+				$(`#tbody_${tipo}`).html(html);
+				$(`#tabela_${tipo}`).show();
+			} else {
+				$(`#sem_${tipo}`).show();
+			}
+		}).fail(() => {
 			$(`#sem_${tipo}`).show();
-		}
-	}).fail(() => {
-		$(`#sem_${tipo}`).show();
-	}).always(() => {
-		$(`#carregando_${tipo}`).hide();
-	});
+		});
+	}
+
+	$(`#carregando_${tipo}`).hide();
 }
 
 function montarSeletorPorTipo(tipo) {
 	let url = `${urlBaseApi}/${tipo}`;
 
-	$.get(url, (resultado) => {
-		if (resultado.resultados) {
-			listaJson = resultado.resultados;
+	$.get(url, ({
+		resultados
+	}) => {
+		if (resultados.length > 0) {
+			listaJson = resultados;
 			let html = '<option disabled selected>Selecione um item...</option>';
 
 			listaJson.forEach((dado) => {

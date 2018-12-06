@@ -103,9 +103,7 @@ exports.atualizarAluno = (req, res) => {
 				query += `${atributo} = "${req.body[ atributo ]}", `;
 			}
 		});
-
 		query = query.replace(/,\s*$/, '');
-
 		query += ` WHERE id = ${req.params.id}`;
 
 		// console.log(query);
@@ -139,16 +137,27 @@ exports.atualizarAluno = (req, res) => {
 exports.removerAluno = (req, res) => {
 	if (req.params.id) {
 		let query = `DELETE FROM alunos WHERE id = ${req.params.id}`;
+		let queryAlunoDisciplina = `DELETE FROM aluno_disciplina WHERE idAluno = ${req.params.id}`;
 
-		// console.log(query)
+		// Remove notas associadas ao aluno
+		conexao.query(queryAlunoDisciplina, (erro, resultado) => {
+			if (erro) {
+				console.log(`Erro ao remover notas associadas ao aluno com id = ${req.params.id}`, erro);
+			} else {
+				console.log(`Notas associadas ao aluno com id = ${req.params.id}, removidas com sucesso!`);
+			}
+		});
 
+		// Remove aluno após remover notas
 		conexao.query(query, (erro, resultado) => {
 			if (erro) {
+				console.log(`Erro ao remover aluno com id = ${req.params.id}`, erro);
 				res.status(500).json({
 					erro,
 					mensagem: `Erro ao excluir aluno`
 				});
 			} else {
+				console.log(`Aluno com id = ${req.params.id} removido com sucesso!`);
 				res.status(200).json({
 					resultado,
 					mensagem: `Aluno excluído com sucesso`
