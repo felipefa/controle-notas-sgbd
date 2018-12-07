@@ -17,12 +17,7 @@ $(() => {
 		montarSeletorPorTipo('disciplinas');
 	}
 
-	$(`#adicionar_${tipo}_link`).on('click', () => {
-		limparFormulario(tipo);
-		$(`#modal_${tipo}`).modal('show');
-	});
-
-	$(`#adicionar_${tipo}`).on('click', () => {
+	$(`#adicionar_${tipo}, #adicionar_${tipo}_link`).on('click', () => {
 		limparFormulario(tipo);
 		$(`#modal_${tipo}`).modal('show');
 	});
@@ -181,25 +176,25 @@ function gerarRelatorio(tipo) {
 
 								pdfMake.createPdf(relatorio).download(`relatorio_de_notas_${tipo}.pdf`);
 							} else {
-								alert('Nenhum aluno encontrado');
+								mostrarMensagemUsuario('alert-warning', `Nenhum aluno encontrado. Cadastre um na página Alunos.`);
 							}
-						}).fail(function() {
-							alert('Erro ao buscar alunos');
+						}).fail(function(e) {
+							mostrarMensagemUsuario('alert-danger', `Erro ao buscar alunos: ${e.statusText}`);
 						});
 					} else {
-						alert('Nenhuma nota encontrada');
+						mostrarMensagemUsuario('alert-warning', `Nenhuma nota encontrada. Cadastre uma na página Notas.`);
 					}
-				}).fail(function() {
-					alert('Erro ao buscar notas');
+				}).fail(function(e) {
+					mostrarMensagemUsuario('alert-danger', `Erro ao buscar notas: ${e.statusText}`);
 				});
 			} else {
-				alert('Nenhuma disciplina encontrada');
+				mostrarMensagemUsuario('alert-warning', `Nenhuma disciplina encontrada. Cadastre uma na página Disciplinas.`);
 			}
-		}).fail(function() {
-			alert('Erro ao buscar disciplinas');
+		}).fail(function(e) {
+			mostrarMensagemUsuario('alert-danger', `Erro ao buscar disciplinas: ${e.statusText}`);
 		});
 	} else {
-		alert('Selecione uma disciplina para gerar seu relatório de notas');
+		mostrarMensagemUsuario('alert-info', `Por favor, selecione uma disciplina para gerar seu relatório de notas.`);
 	}
 }
 
@@ -372,9 +367,10 @@ function remover(tipo, id) {
 		method: 'DELETE',
 		url: url
 	}).done(function () {
+		mostrarMensagemUsuario('alert-success', `Dados removidos de ${tipo} com sucesso!`);
 		montarTabelaPorTipo(tipo);
-	}).fail(function () {
-		alert('Erro ao remover');
+	}).fail(function (e) {
+		mostrarMensagemUsuario('alert-danger', `Erro ao remover dados de ${tipo}: ${e.statusText}`);
 	});
 }
 
@@ -420,7 +416,9 @@ function salvar(tipo) {
 	}
 
 	// console.log('Dados que serão salvos:', dados);
+	let nomeDados = dados.nome;
 	dados = JSON.stringify(dados);
+
 
 	$.ajax({
 		method: metodo,
@@ -432,12 +430,29 @@ function salvar(tipo) {
 	}).done(function () {
 		if (tipo === 'usuarios') {
 			location.reload();
-		} else if (tipo !== 'notas') {
+		} else if (tipo === 'notas') {
+			mostrarMensagemUsuario('alert-success', `Notas salvas com sucesso!`);
+		} else {			
+			mostrarMensagemUsuario('alert-success', `${nomeDados} salvo com sucesso!`);
 			montarTabelaPorTipo(tipo);
 			$(`#modal_${tipo}`).modal('hide');
 			limparFormulario(tipo);
 		}
-	}).fail(function () {
-		alert('Erro ao salvar');
+	}).fail(function (e) {
+		if (tipo === 'notas') {
+			mostrarMensagemUsuario('alert-danger', `Erro ao salvar notas: ${e.statusText}`);
+		} else {
+			mostrarMensagemUsuario('alert-danger', `Erro ao salvar ${nomeDados}: ${e.statusText}`);
+		}
 	});
+}
+
+function mostrarMensagemUsuario(classe, mensagem) {	
+	let alerta = $('[role=alert]');
+	alerta.prop('class', `alert ${classe}`);
+	alerta.html(mensagem);
+	alerta.show();	
+	setTimeout(() => {
+		alerta.hide();
+	}, 3500);
 }

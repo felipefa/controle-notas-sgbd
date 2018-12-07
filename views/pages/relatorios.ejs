@@ -9,11 +9,14 @@
 	</header>
 
 	<main role="main" class="container py-3 text-white">
+    <div class="alert" role="alert" style="display: none;">
+      Alerta padrão.
+    </div>
 		<h2 class="py-3 text-center">Relatórios</h2>
 		<div class="card bg-dark shadow-lg">
 			<div class="card-body dados_relatorios my-3">
 				<div class="row">
-					<div class="col-12 col-md-6 my-2">
+					<div class="col-12 col-lg-6 my-2">
 						<p>Selecione uma disciplina para gerar seu relatório de notas.</p>
 						<div class="input-group">
 							<select class="custom-select" id="seletor_disciplinas" aria-label="Seletor de disciplina para geração de relatório">
@@ -24,7 +27,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-12 col-md-6 my-2">
+					<div class="col-12 col-lg-6 my-2">
 						<p>Gere um relatório das notas de todas as disciplinas.</p>
 						<button type="button" class="btn btn-block btn-warning" onclick="gerarRelatorio('geral')">Gerar Relatório Geral</button>
 					</div>
