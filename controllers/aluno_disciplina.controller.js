@@ -1,6 +1,11 @@
 const AlunoDisciplina = require('../models/aluno_disciplina.model');
 
-// Adiciona um novo aluno caso a matrícula e o cpf não existam no banco.
+/**
+ * Adiciona uma nova entrada (nota) na tabela aluno_disciplina com base nos dados recebidos na requisição.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body).
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.adicionarAlunoDisciplina = (req, res) => {
 	let atributos = Object.keys(AlunoDisciplina);
 
@@ -49,7 +54,12 @@ exports.adicionarAlunoDisciplina = (req, res) => {
 	});
 }
 
-// Busca todos os dados de aluno_disciplina
+/**
+ * Busca todos os dados da tabela aluno_disciplina.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.buscarTodosAlunoDisciplina = (req, res) => {
 	let query = `SELECT * FROM aluno_disciplina ORDER BY idAluno`;
 
@@ -73,8 +83,12 @@ exports.buscarTodosAlunoDisciplina = (req, res) => {
 	});
 }
 
-// Busca os dados de aluno_disciplina de acordo com o atributo passado na URL
-// Caso nenhum atributo tenha sido passado, busca pelo possível id contido no final da URL
+/**
+ * Busca os dados da tabela aluno_disciplina de acordo com os parâmetros passados na requisição.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor, contendo no atributo params, a chave e o valor que deverão ser usados na busca.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.buscarAlunoDisciplinaPorAtributo = (req, res) => {
 	let atributo = req.params.atributo ? req.params.atributo : 'idAluno';
 	let valor = req.params.valor ? req.params.valor : req.params.atributo;
@@ -102,7 +116,12 @@ exports.buscarAlunoDisciplinaPorAtributo = (req, res) => {
 	});
 }
 
-// Atualiza os dados de um aluno_disciplina de acordo com os ids passados na URL
+/**
+ * Atualiza os dados da tabela aluno_disciplina de acordo com os ids (do aluno e da disciplina) passados na requisição.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body) e os ids (do aluno e da disciplina) do item que deve ser alterado.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.atualizarAlunoDisciplina = (req, res) => {
 	let atributos = Object.keys(AlunoDisciplina);
 	let query = `UPDATE aluno_disciplina SET `;
@@ -134,7 +153,12 @@ exports.atualizarAlunoDisciplina = (req, res) => {
 	});
 }
 
-// Remove um aluno de acordo com o id passado na URL
+/**
+ * Remove uma nota de acordo com os ids (do aluno e da disciplina) passados na requisição.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor com os ids (do aluno e da disciplina) do item que deve ser removido.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.removerAlunoDisciplina = (req, res) => {
 	let query = `DELETE FROM aluno_disciplina WHERE idAluno = ${req.params.idAluno} AND idDisciplina = ${req.params.idDisciplina}`;
 

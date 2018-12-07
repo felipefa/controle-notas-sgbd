@@ -129,10 +129,10 @@ exports.atualizarAluno = (req, res) => {
 }
 
 /**
- *	Remove um aluno de acordo com o id passado na URL
- *
- *	@param {Object} req - requisição
- *	@param {Object} res - resposta
+ * Remove um aluno de acordo com o id passado na requisição.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor com o id do aluno que deve ser removido.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
  */
 exports.removerAluno = (req, res) => {
 	if (req.params.id) {

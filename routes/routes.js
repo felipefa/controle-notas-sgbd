@@ -38,6 +38,10 @@ router.get('/', verificaAutenticado, (req, res) => {
   res.render('pages/index', { usuario: usuario });
 });
 
+router.get('/docs', (req, res) => {
+  res.render('../public/docs');
+});
+
 // Carrega a página solicitada na URL caso exista, senão exibe erro
 // TODO: Criar página de erro 404
 router.get('/:pagina', verificaAutenticado, (req, res) => {

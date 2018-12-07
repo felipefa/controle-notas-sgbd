@@ -8,8 +8,10 @@ const PORT = process.env.PORT || 5000;
 const session = require('express-session');
 const passport = require('passport');
 
-// Gerencia a conexão com o Banco de Dados
-function handleDisconnect() {
+/**
+ * Gerencia a conexão com o Banco de Dados, fazendo com que ela seja reestabelecida sempre que for perdida.
+ */
+function gerenciarConexao() {
   let conexao = mysql.createConnection({
     host: config.host,
     user: config.user,
@@ -20,7 +22,7 @@ function handleDisconnect() {
   conexao.connect((err) => {
     if (err) {
       // console.log('\n\nErro ao conectar ao BD\n', err);
-      setTimeout(handleDisconnect, 2000);
+      setTimeout(gerenciarConexao, 2000);
     }
     // console.log('\n\nConexão com o BD estabelecida com sucesso!');
   });
@@ -28,7 +30,7 @@ function handleDisconnect() {
   conexao.on('error', (err) => {
     // console.log('\n\nErro na conexão com o BD\n', err);
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-      handleDisconnect();
+      gerenciarConexao();
     } else {
       throw err;
     }
@@ -37,33 +39,36 @@ function handleDisconnect() {
   global.conexao = conexao;
 }
 
-handleDisconnect();
+gerenciarConexao();
 
 const app = express();
 global.app = app;
 
-// Rotas
-const apiRoute = require('./routes/routes');
+// Define as rotas do servidor.
+const rotas = require('./routes/routes');
 
-// Libera o CORS
+// Libera o CORS.
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
 
-// Define a engine da visão para o EJS
+// Define a engine que carrega a visão para o EJS.
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Permite reconhecer o JSON recebido
+// Permite reconhecer o JSON recebido no corpo (body) da requisição.
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Permite o uso dos cookies.
 app.use(cookieParser());
 
+// Define o caminho padrão dos conteúdos (imagens, CSS e JS) no browser para a pasta public.
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Express Session
+// Habilita o Express Session.
 app.use(session({
   secret: 'sgbd-secret',
   saveUninitialized: true,
@@ -75,7 +80,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Inicia as rotas
-app.use('/', apiRoute);
+app.use('/', rotas);
 
 // Captura erro 404 e encaminha para o gerenciador de erros
 app.use((req, res, next) => {

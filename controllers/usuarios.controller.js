@@ -34,11 +34,11 @@ exports.registrar = (req, res) => {
 }
 
 /**
- *	@function compararSenha - Compara a possível senha com o hash
+ * Compara a possível senha com o hash informado.
  * 
- * @param {String} possivelSenha - Possível senha que deve ser comparada
- * @param {String} hash - Hash que deve ser usado na comparação
- * @param {(erro: Error, sucesso: boolean)} resultado - Callback para retornar o resultado da comparação
+ * @param {String} possivelSenha - Possível senha que deve ser comparada.
+ * @param {String} hash - Hash que deve ser usado na comparação.
+ * @param {callback} resultado - Callback que gerencia a resposta obtida.
  */
 exports.compararSenha = (possivelSenha, hash, resultado) => {
 	bcryptjs.compare(possivelSenha, hash, (erro, sucesso) => {
@@ -46,6 +46,14 @@ exports.compararSenha = (possivelSenha, hash, resultado) => {
 		resultado(null, sucesso);
 	});
 }
+/**
+ * Callback usada para retornar o resultado da comparação entre possível senha e hash.
+ * 
+ * @callback resultado
+ * @param {Error} erro - Erro obtido durante a execução da comparação.
+ * @param {boolean} sucesso - Valor obtido através da comparação.
+ */
+
 
 exports.getUsuarioPorEmail = (email, resultado) => {
 	conexao.query('SELECT * FROM usuarios WHERE email = ?', [email], (erro, resultados) => {

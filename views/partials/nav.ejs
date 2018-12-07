@@ -6,15 +6,16 @@
 	</button>
 	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 		<div class="navbar-nav">
-			<a class="mx-2 nav-item nav-link" href="/">Início</a>
-			<a class="mx-2 nav-item nav-link" href="/alunos" id="nav_alunos" style="display: none;">Alunos</a>
-			<a class="mx-2 nav-item nav-link" href="/disciplinas" id="nav_disciplinas" style="display: none;">Disciplinas</a>
-			<a class="mx-2 nav-item nav-link" href="/notas">Notas</a>
-			<a class="mx-2 nav-item nav-link" href="/relatorios">Relatórios</a>
+			<a class="nav-item nav-link" href="/">Início</a>
+			<a class="nav-item nav-link" href="/alunos" id="nav_alunos" style="display: none;">Alunos</a>
+			<a class="nav-item nav-link" href="/disciplinas" id="nav_disciplinas" style="display: none;">Disciplinas</a>
+			<a class="nav-item nav-link" href="/notas">Notas</a>
+			<a class="nav-item nav-link" href="/relatorios">Relatórios</a>
+			<a class="nav-item nav-link" href="/docs">Documentação</a>
 		</div>
 		<div class="navbar-nav ml-auto">
-			<a class="mx-2 nav-item nav-link" href="#" data-toggle="modal" data-target="#modal_usuarios"><%= usuario.nome %><% if (usuario.administrador == 1) { %> (Administrador)<% } %></a>
-			<a class="mx-2 nav-item nav-link text-danger" href="/sair">Sair</a>
+			<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modal_usuarios"><%= usuario.nome %><% if (usuario.administrador == 1) { %> (Administrador)<% } %></a>
+			<a class="nav-item nav-link text-danger" href="/sair">Sair</a>
 		</div>
 	</div>
 </nav>
