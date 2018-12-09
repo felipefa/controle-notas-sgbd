@@ -1,6 +1,12 @@
 const bcryptjs = require('bcryptjs');
 let Usuario = require('../models/usuarios.model');
 
+/**
+ * Registra os dados de um novo usuário.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body).
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.registrar = (req, res) => {
 	let atributos = Object.keys(Usuario);
 
@@ -120,7 +126,12 @@ exports.buscarUsuarioPorAtributo = (req, res) => {
 	});
 }
 
-// Atualiza os dados de um usuário de acordo com o id passado na URL
+/**
+ * Atualiza os dados de um usuário de acordo com o id passado na URL.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body) e os ids de usuario do item que deve ser alterado.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.atualizarUsuario = (req, res) => {
 	if (req.params.id) {
 		let atributos = Object.keys(Usuario);
@@ -155,7 +166,12 @@ exports.atualizarUsuario = (req, res) => {
 		});
 	}
 }
-
+/**
+ * Remove um usuario de acordo com o id passado na requisição.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor com o id do usuario que deve ser removido.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.removerUsuario = (req, res) => {
 	if (req.params.id) {
 		conexao.query(`DELETE FROM usuarios WHERE id = ${req.params.id}`, (erro, resultado) => {
