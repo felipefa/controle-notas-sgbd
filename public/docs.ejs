@@ -37,9 +37,39 @@
               
                 
                 <li><a
+                  href='#registrar'
+                  class="">
+                  registrar
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#compararsenha'
                   class="">
                   compararSenha
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#atualizarusuario'
+                  class="">
+                  atualizarUsuario
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#removerusuario'
+                  class="">
+                  removerUsuario
                   
                 </a>
                 
@@ -57,9 +87,99 @@
               
                 
                 <li><a
+                  href='#adicionaraluno'
+                  class="">
+                  adicionarAluno
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#buscartodosalunos'
+                  class="">
+                  buscarTodosAlunos
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#buscaralunoporatributo'
+                  class="">
+                  buscarAlunoPorAtributo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#atualizaraluno'
+                  class="">
+                  atualizarAluno
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#removeraluno'
                   class="">
                   removerAluno
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#adicionardisciplina'
+                  class="">
+                  adicionarDisciplina
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#buscartodosdisciplinas'
+                  class="">
+                  buscarTodosDisciplinas
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#buscardisciplinaporatributo'
+                  class="">
+                  buscarDisciplinaPorAtributo
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#atualizardisciplina'
+                  class="">
+                  atualizarDisciplina
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#removerdisciplina'
+                  class="">
+                  removerDisciplina
                   
                 </a>
                 
@@ -178,6 +298,77 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='registrar'>
+      registrar
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Registra os dados de um novo usuário.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>registrar(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida com os dados a serem gravados (atributo body).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='compararsenha'>
       compararSenha
     </h3>
@@ -228,6 +419,148 @@
           <div>
             <span class='code bold'>resultado</span> <code class='quiet'>(callback)</code>
 	    Callback que gerencia a resposta obtida.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='atualizarusuario'>
+      atualizarUsuario
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Atualiza os dados de um usuário de acordo com o id passado na URL.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>atualizarUsuario(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida com os dados a serem gravados (atributo body) e os ids de usuario do item que deve ser alterado.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='removerusuario'>
+      removerUsuario
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Remove um usuario de acordo com o id passado na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>removerUsuario(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida pelo servidor com o id do usuario que deve ser removido.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
 
           </div>
           
@@ -334,6 +667,290 @@
   
   <div class='clearfix'>
     
+    <h3 class='fl m0' id='adicionaraluno'>
+      adicionarAluno
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adiciona uma nova entrada (aluno) na tabela aluno com base nos dados recebidos na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>adicionarAluno(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida com os dados a serem gravados (atributo body).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='buscartodosalunos'>
+      buscarTodosAlunos
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Busca todos os dados da tabela aluno.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>buscarTodosAlunos(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida pelo servidor.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='buscaralunoporatributo'>
+      buscarAlunoPorAtributo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Busca os dados da tabela aluno de acordo com os parâmetros passados na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>buscarAlunoPorAtributo(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida pelo servidor, contendo no atributo params, a chave e o valor que deverão ser usados na busca.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='atualizaraluno'>
+      atualizarAluno
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Atualiza os dados da tabela aluno de acordo com os ids passados na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>atualizarAluno(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida com os dados a serem gravados (atributo body) e o id do aluno do item que deve ser alterado.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
     <h3 class='fl m0' id='removeraluno'>
       removerAluno
     </h3>
@@ -366,6 +983,361 @@
           <div>
             <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
 	    Requisição recebida pelo servidor com o id do aluno que deve ser removido.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='adicionardisciplina'>
+      adicionarDisciplina
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Adiciona uma nova entrada (disciplina) na tabela disciplina com base nos dados recebidos na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>adicionarDisciplina(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida com os dados a serem gravados (atributo body).
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='buscartodosdisciplinas'>
+      buscarTodosDisciplinas
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Busca todos os dados da tabela disciplina.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>buscarTodosDisciplinas(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida pelo servidor.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='buscardisciplinaporatributo'>
+      buscarDisciplinaPorAtributo
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Busca os dados da tabela disciplina de acordo com os parâmetros passados na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>buscarDisciplinaPorAtributo(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida pelo servidor, contendo no atributo params, a chave e o valor que deverão ser usados na busca.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='atualizardisciplina'>
+      atualizarDisciplina
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Atualiza os dados da tabela disciplina de acordo com os ids passados na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>atualizarDisciplina(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida com os dados a serem gravados (atributo body) e o id da disciplina do item que deve ser alterado.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>res</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Resposta que será retornada pelo servidor contendo um JSON.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='removerdisciplina'>
+      removerDisciplina
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Remove uma disciplina de acordo com o id passado na requisição.</p>
+
+ 
+  
+    <div class='pre p1 fill-light mt0'>removerDisciplina(req: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>, res: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</div>
+   
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>req</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>)</code>
+	    Requisição recebida pelo servidor com o id do disciplina que deve ser removido.
 
           </div>
           

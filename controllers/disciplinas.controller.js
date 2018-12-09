@@ -1,6 +1,11 @@
 const Disciplina = require('../models/disciplinas.model');
 
-// Adiciona uma nova disciplina caso o codigo não exista no banco.
+/**
+ * Adiciona uma nova entrada (disciplina) na tabela disciplina com base nos dados recebidos na requisição.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body).
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.adicionarDisciplina = (req, res) => {
 	let atributos = Object.keys(Disciplina);
 
@@ -27,7 +32,12 @@ exports.adicionarDisciplina = (req, res) => {
 	});
 }
 
-// Busca todas as disciplinas
+/**
+ * Busca todos os dados da tabela disciplina.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.buscarTodosDisciplinas = (req, res) => {
 	let query = `SELECT * FROM disciplinas ORDER BY nome ASC`;
 
@@ -44,9 +54,12 @@ exports.buscarTodosDisciplinas = (req, res) => {
 		});
 	});
 }
-
-// Busca disciplinas de acordo com o atributo passado na URL
-// Caso nenhum atributo tenha sido passado, busca pelo possível id contido no final da URL
+/**
+ * Busca os dados da tabela disciplina de acordo com os parâmetros passados na requisição.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor, contendo no atributo params, a chave e o valor que deverão ser usados na busca.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.buscarDisciplinaPorAtributo = (req, res) => {
 	let atributo = req.params.atributo ? req.params.atributo : 'id';
 	let valor = req.params.valor ? req.params.valor : req.params.atributo;
@@ -81,7 +94,12 @@ exports.buscarDisciplinaPorAtributo = (req, res) => {
 	});
 }
 
-// Atualiza os dados de uma disciplina de acordo com o id passado na URL
+/**
+ * Atualiza os dados da tabela disciplina de acordo com os ids passados na requisição.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body) e o id da disciplina do item que deve ser alterado.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.atualizarDisciplina = (req, res) => {
 	if (req.params.id) {
 		let atributos = Object.keys(Disciplina);
@@ -117,7 +135,12 @@ exports.atualizarDisciplina = (req, res) => {
 	}
 }
 
-// Remove uma disciplina de acordo com o id passado na URL
+/**
+ * Remove uma disciplina de acordo com o id passado na requisição.
+ * 
+ * @param {Object} req - Requisição recebida pelo servidor com o id do disciplina que deve ser removido.
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.removerDisciplina = (req, res) => {
 	if (req.params.id) {
 		let query = `DELETE FROM disciplinas WHERE id = ${req.params.id}`;
