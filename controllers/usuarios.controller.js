@@ -62,7 +62,11 @@ exports.compararSenha = (possivelSenha, hash, resultado) => {
  * @param {boolean} sucesso - Valor obtido através da comparação.
  */
 
-
+ /**
+ * Busca os dados de um usuário de acordo com os parametros passado.
+ * @param {String} email - email obtido pela entrada do usuario 
+ * @param {callback} resultado - Callback que gerencia a resposta obtida.
+ */
 exports.getUsuarioPorEmail = (email, resultado) => {
 	conexao.query('SELECT * FROM usuarios WHERE email = ?', [email], (erro, resultados) => {
 		if (erro) {
@@ -77,7 +81,16 @@ exports.getUsuarioPorEmail = (email, resultado) => {
 		}
 	});
 }
+/**
+ * Callback usada para retornar o resultado da entrada do e-mail do usuario.
+ * @callback resultado
+ */
 
+ /**
+ * Busca os dados de um usuário de acordo com os parametros passado.
+ * @param {String} id - email obtido pela entrada do usuario 
+ * @param {callback} resultado - Callback que gerencia a resposta obtida.
+ */
 exports.getUsuarioPorId = (id, resultado) => {
 	conexao.query('SELECT * FROM usuarios WHERE id = ?', [id], (erro, resultados) => {
 		if (erro) {
@@ -93,7 +106,18 @@ exports.getUsuarioPorId = (id, resultado) => {
 		}
 	});
 }
+/**
+ * Callback usada para retornar o resultado da entrada do id do usuario.
+ * 
+ * @callback resultado
+ */
 
+/**
+ * Busca os dados de um usuário de acordo com os parametros passado.
+ * 
+ * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body).
+ * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
+ */
 exports.buscarUsuarioPorAtributo = (req, res) => {
 	let atributo = req.params.atributo ? req.params.atributo : 'id';
 	let valor = req.params.valor;
