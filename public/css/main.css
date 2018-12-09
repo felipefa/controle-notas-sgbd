@@ -8,6 +8,10 @@
   border-radius: 1rem;
 }
 
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+  background-color: var(--yellow);
+}
+
 .fade {
   background: #00000080;
 }

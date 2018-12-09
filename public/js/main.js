@@ -4,12 +4,11 @@ $(() => {
 
 	if (pathname === '/alunos' || pathname === '/disciplinas') {
 		montarTabelaPorTipo(tipo);
-
 		$('#buscar').on('keypress', function (e) {
 			if (e.keyCode === 13) {
 				buscar(tipo);
 			}
-		});
+		});		
 	} else if (pathname === '/notas') {
 		montarSeletorPorTipo('alunos');
 		montarSeletorPorTipo('disciplinas');
@@ -30,6 +29,10 @@ $(() => {
 	$(`#form_usuarios`).submit(() => {
 		salvar('usuarios');
 		return false;
+	});
+	
+	$(`#modal_${tipo}`).on('shown.bs.modal', () => {
+		aplicarMascara();
 	});
 
 	let administrador = $('#administrador');
@@ -242,8 +245,8 @@ function gerarHtmlLinhasTabela(tipo, dados) {
 				<tr>
 					<th onClick="editar('${tipo}', ${dado.id})" scope="row">${index+1}</th>
 					<td onClick="editar('${tipo}', ${dado.id})">${dado.nome}</td>
-					<td onClick="editar('${tipo}', ${dado.id})">${dado.matricula}</td>
-					<td onClick="editar('${tipo}', ${dado.id})">${dado.cpf}</td>
+					<td onClick="editar('${tipo}', ${dado.id})" data-mask="0000.0.0000.0000-0">${dado.matricula}</td>
+					<td onClick="editar('${tipo}', ${dado.id})" data-mask="000.000.000-00">${dado.cpf}</td>
 					<td onClick="editar('${tipo}', ${dado.id})">${dado.email}</td>
 					<td class="text-center"><button class="btn btn-danger" onClick="remover('${tipo}', ${dado.id})"><i class="fas fa-trash-alt"></i></button></td>
 				</tr>
@@ -271,7 +274,7 @@ function montarTabelaPorTipo(tipo, dados) {
 	if (dados) {
 		let html = gerarHtmlLinhasTabela(tipo, dados);
 		$(`#tbody_${tipo}`).html(html);
-		$(`#tabela_${tipo}`).show();
+		$(`#tabela_${tipo}`).show();	
 	} else {
 		let url = `${urlBaseApi}/${tipo}`;
 
@@ -292,6 +295,9 @@ function montarTabelaPorTipo(tipo, dados) {
 	}
 
 	$(`#carregando_${tipo}`).hide();
+	setTimeout(()=>{
+		aplicarMascara();
+	}, 800);	
 }
 
 function montarSeletorPorTipo(tipo) {
@@ -390,7 +396,11 @@ function salvar(tipo) {
 		} else if (elementoInput.prop('type') === 'number') {
 			dados[elementoName] = elementoInput.val() ? elementoInput.val() : 0;
 		} else {
-			dados[elementoName] = elementoInput.val() ? elementoInput.val() : '';
+			if (elementoName === 'cpf' || elementoName === 'matricula') {
+				dados[elementoName] = elementoInput.cleanVal();
+			} else {
+				dados[elementoName] = elementoInput.val() ? elementoInput.val() : '';
+			}
 		}
 	});
 
@@ -455,4 +465,13 @@ function mostrarMensagemUsuario(classe, mensagem) {
 	setTimeout(() => {
 		alerta.hide();
 	}, 3500);
+}
+
+function aplicarMascara() {
+	$('.cpf, .matricula, .codigo').unmask();
+	$('.cpf').mask('000.000.000-00');
+	$('.matricula').mask('0000.0.0000.0000-0');
+	$('.codigo').mask('MMM0000', 
+		{'translation': {M: {pattern: /[A-Z]/}}});
+	$.applyDataMask();
 }

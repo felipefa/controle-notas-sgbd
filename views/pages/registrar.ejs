@@ -9,41 +9,50 @@
 		<div class="row h-100 align-items-center justify-content-center">
 			<div class="col">
 				<form id="registrarForm" method="POST" action="/registrar">
-					<div class="card bg-dark text-white align-items-center justify-content-center text-center shadow-lg">
+					<div class="card bg-dark text-white align-items-center justify-content-center shadow-lg">
 						<div class="card-body">
-							<div class="row my-4">
+							<div class="row my-4 text-center">
 								<div class="col">
 									<h5 class="card-title">Sistema de Controle de Notas</h5>
 									<p class="text-muted">SGBD - PUC Goiás</p>
 									<h4>Registrar</h4>
 								</div>
 							</div>
-							<div class="row text-left">
+							<div class="row">
 								<div class="form-group col">
 									<label for="nome">Nome</label>
 									<input type="text" class="form-control" id="nome" name="nome" maxlength="50" required>
 								</div>
 							</div>
-							<div class="row text-left">
+							<div class="row">
 								<div class="form-group col">
 									<label for="sobrenome">Sobrenome</label>
 									<input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="100" required>
 								</div>
 							</div>
-							<div class="row text-left">
+							<div class="row">
 								<div class="form-group col">
 									<label for="email">E-mail</label>
 									<input type="email" class="form-control" id="email" name="email" maxlength="100" required>
 								</div>
 							</div>
-							<div class="row text-left">
+							<div class="row">
 								<div class="form-group col">
 									<label for="senha">Senha</label>
 									<input type="password" class="form-control" id="senha" name="senha" maxlength="255" required>
 								</div>
 							</div>
+							<div class="row">
+								<div class="form-group col">
+									<label for="administrador">Tipo de Perfil</label>
+									<div class="custom-control custom-checkbox">
+										<input class="custom-control-input" id="administrador" name="administrador" type="checkbox">
+										<label class="custom-control-label" for="administrador">Administrador</label>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="card-footer bg-transparent border-0 mb-4">
+						<div class="card-footer bg-transparent border-0 mb-4 text-center">
 							<div class="row">
 								<div class="col">
 									<button type="submit" class="btn btn-warning">Registrar</button>
@@ -61,7 +70,7 @@
 		</div>
 	</div>
 
-  <script src="/javascripts/jquery-3.3.1.min.js"></script>
+	<script src="/js/jquery-3.3.1.min.js"></script>
 </body>
 
 </html>
