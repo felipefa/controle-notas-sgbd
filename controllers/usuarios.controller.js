@@ -7,6 +7,8 @@ exports.registrar = (req, res) => {
 	atributos.forEach(atributo => {
 		if (req.body[atributo]) {
 			Usuario[atributo] = req.body[atributo];
+		} else if (atributo === 'administrador') { 
+			Usuario[atributo] = '0';
 		} else {
 			console.log(`Erro ao criar usuário.\nAtributo ${atributo} vazio.`);
 			res.status(400).redirect('/registrar');
@@ -14,13 +16,13 @@ exports.registrar = (req, res) => {
 	});
 
 	bcryptjs.genSalt(10, (erroSalt, salt) => {
-		bcryptjs.hash(Aluno.senha, salt, (erroHash, hash) => {
+		bcryptjs.hash(Usuario.senha, salt, (erroHash, hash) => {
 			if (erroHash) {
 				console.log('Erro ao criar hash da senha', erroHash);
 				res.status(400).redirect('/registrar');
 			} else {
-				Aluno.senha = hash;
-				conexao.query('INSERT INTO usuarios SET ?', Aluno, (erro) => {
+				Usuario.senha = hash;
+				conexao.query('INSERT INTO usuarios SET ?', Usuario, (erro) => {
 					if (erro) {
 						console.log('Erro ao inserir novo usuário', erro);
 						res.status(400).redirect('/registrar');
