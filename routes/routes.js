@@ -1,3 +1,20 @@
+/** 
+ *	@name routes
+ *
+ *  @file Arquivo responsável pelas rotas da aplicação, incluindo login e cadastro de usuários.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ * 	@requires NPM:express
+ * 	@requires NPM:passport
+ * 	@requires NPM:passport-local
+ *  @requires controllers/usuarios.controller
+ * 	@requires utils/verificaAutenticado
+ * 	@requires alunos.route
+ * 	@requires disciplinas.route
+ * 	@requires aluno_disciplina.route
+ */
+
 const express = require('express');
 const router = express.Router();
 const usuariosCtrl = require('../controllers/usuarios.controller');

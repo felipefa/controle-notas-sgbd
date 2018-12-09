@@ -1,8 +1,19 @@
+/** 
+ *	@name usuarios.controller
+ *
+ *  @file Arquivo responsável pelo CRUD dos usuários da aplicação. Assim como o login e a verificação de senha.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ *  @requires NPM:bcryptjs
+ *  @requires models/usuarios.model
+ */
+
 const bcryptjs = require('bcryptjs');
 let Usuario = require('../models/usuarios.model');
 
 /**
- * Registra os dados de um novo usuário.
+ * Registra um novo usuário de acordo com os dados recebidos.
  * 
  * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body).
  * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
@@ -41,12 +52,13 @@ exports.registrar = (req, res) => {
 	});
 }
 
+
 /**
  * Compara a possível senha com o hash informado.
  * 
  * @param {String} possivelSenha - Possível senha que deve ser comparada.
  * @param {String} hash - Hash que deve ser usado na comparação.
- * @param {callback} resultado - Callback que gerencia a resposta obtida.
+ * @param {resultadoCompararSenha} resultado - Callback que gerencia a resposta obtida.
  */
 exports.compararSenha = (possivelSenha, hash, resultado) => {
 	bcryptjs.compare(possivelSenha, hash, (erro, sucesso) => {
@@ -57,15 +69,17 @@ exports.compararSenha = (possivelSenha, hash, resultado) => {
 /**
  * Callback usada para retornar o resultado da comparação entre possível senha e hash.
  * 
- * @callback resultado
+ * @callback resultadoCompararSenha
  * @param {Error} erro - Erro obtido durante a execução da comparação.
  * @param {boolean} sucesso - Valor obtido através da comparação.
  */
 
+
  /**
  * Busca os dados de um usuário de acordo com os parametros passado.
+ * 
  * @param {String} email - email obtido pela entrada do usuario 
- * @param {callback} resultado - Callback que gerencia a resposta obtida.
+ * @param {resultadoGetUsuarioPorEmail} resultado - Callback que gerencia a resposta obtida.
  */
 exports.getUsuarioPorEmail = (email, resultado) => {
 	conexao.query('SELECT * FROM usuarios WHERE email = ?', [email], (erro, resultados) => {
@@ -82,14 +96,19 @@ exports.getUsuarioPorEmail = (email, resultado) => {
 	});
 }
 /**
- * Callback usada para retornar o resultado da entrada do e-mail do usuario.
- * @callback resultado
+ * Callback usada para retornar o resultado da entrada do email do usuario.
+ * 
+ * @callback resultadoGetUsuarioPorEmail
+ * @param {Error} erro - Erro obtido durante a execução da consulta ao email.
+ * @param {Object} resultado - Valor obtido através da consulta.
  */
+
 
  /**
  * Busca os dados de um usuário de acordo com os parametros passado.
+ * 
  * @param {String} id - email obtido pela entrada do usuario 
- * @param {callback} resultado - Callback que gerencia a resposta obtida.
+ * @param {resultadoGetUsuarioPorId} resultado - Callback que gerencia a resposta obtida.
  */
 exports.getUsuarioPorId = (id, resultado) => {
 	conexao.query('SELECT * FROM usuarios WHERE id = ?', [id], (erro, resultados) => {
@@ -109,7 +128,9 @@ exports.getUsuarioPorId = (id, resultado) => {
 /**
  * Callback usada para retornar o resultado da entrada do id do usuario.
  * 
- * @callback resultado
+ * @callback resultadoGetUsuarioPorId
+ * @param {Error} erro - Erro obtido durante a execução da consulta ao id.
+ * @param {Object} resultado - Valor obtido através da consulta.
  */
 
 /**
@@ -192,6 +213,7 @@ exports.atualizarUsuario = (req, res) => {
 		});
 	}
 }
+
 /**
  * Remove um usuario de acordo com o id passado na requisição.
  * 

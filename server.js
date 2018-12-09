@@ -1,3 +1,20 @@
+/** 
+ *	@name server
+ *
+ *  @file Arquivo responsável pela criação e configuração do servidor da aplicação.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ * 	@requires NPM:body-parser
+ * 	@requires NPM:cookie-parser
+ * 	@requires NPM:express
+ * 	@requires NPM:mysql2
+ * 	@requires NPM:path
+ * 	@requires NPM:express-session
+ * 	@requires NPM:passport
+ *  @requires config/db
+ */
+
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/db');

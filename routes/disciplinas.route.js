@@ -1,3 +1,14 @@
+/** 
+ *	@name disciplinas.route
+ *
+ *  @file Arquivo responsável pelas rotas da tabela disciplinas.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ * 	@requires NPM:express
+ *  @requires controllers/disciplinas.controller
+ */
+
 const express = require('express');
 const router = express.Router();
 const disciplinasController = require('../controllers/disciplinas.controller');

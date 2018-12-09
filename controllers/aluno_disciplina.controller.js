@@ -1,3 +1,13 @@
+/** 
+ *	@name aluno_disciplina.controller
+ *
+ *  @file Arquivo responsável pelo CRUD da tabela aluno_disciplina.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ *  @requires models/aluno_disciplina.model
+ */
+
 const AlunoDisciplina = require('../models/aluno_disciplina.model');
 
 /**

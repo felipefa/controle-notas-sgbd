@@ -1,3 +1,13 @@
+/** 
+ *	@name alunos.controller
+ *
+ *  @file Arquivo responsável pelo CRUD da tabela alunos.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ *  @requires models/alunos.model
+ */
+
 const Aluno = require('../models/alunos.model');
 
 /**
@@ -63,10 +73,9 @@ exports.buscarTodosAlunos = (req, res) => {
 	});
 }
 
-// Busca alunos de acordo com o atributo passado na URL
-// Caso nenhum atributo tenha sido passado, busca pelo possível id contido no final da URL
 /**
  * Busca os dados da tabela aluno de acordo com os parâmetros passados na requisição.
+ * Caso nenhum atributo tenha sido passado, busca pelo possível id contido no final da URL.
  * 
  * @param {Object} req - Requisição recebida pelo servidor, contendo no atributo params, a chave e o valor que deverão ser usados na busca.
  * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
@@ -106,14 +115,13 @@ exports.buscarAlunoPorAtributo = (req, res) => {
 		}
 	});
 }
+
 /**
  * Atualiza os dados da tabela aluno de acordo com os ids passados na requisição.
  * 
  * @param {Object} req - Requisição recebida com os dados a serem gravados (atributo body) e o id do aluno do item que deve ser alterado.
  * @param {Object} res - Resposta que será retornada pelo servidor contendo um JSON.
  */
-// Atualiza os dados de um aluno de acordo com o id passado na URL
-// TODO: verficar quais dados foram alterados antes de fazer update para evitar erro de coluna unica de CPF e matricula 
 exports.atualizarAluno = (req, res) => {
 	if (req.params.id) {
 		let atributos = Object.keys(Aluno);

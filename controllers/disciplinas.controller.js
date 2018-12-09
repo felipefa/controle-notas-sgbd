@@ -1,3 +1,13 @@
+/** 
+ *	@name disciplinas.controller
+ *
+ *  @file Arquivo responsável pelo CRUD da tabela disciplinas.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ *  @requires models/disciplinas.model
+ */
+
 const Disciplina = require('../models/disciplinas.model');
 
 /**
@@ -54,6 +64,7 @@ exports.buscarTodosDisciplinas = (req, res) => {
 		});
 	});
 }
+
 /**
  * Busca os dados da tabela disciplina de acordo com os parâmetros passados na requisição.
  * 

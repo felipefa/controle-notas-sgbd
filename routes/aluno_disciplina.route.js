@@ -1,3 +1,14 @@
+/** 
+ *	@name aluno_disciplina.route
+ *
+ *  @file Arquivo responsável pelas rotas da tabela aluno_disciplina.
+ * 
+ *  @author Felipe Araujo e Gabriel Ázara
+ *
+ * 	@requires NPM:express
+ *  @requires controllers/aluno_disciplina.controller
+ */
+
 const express = require('express');
 const router = express.Router();
 const alunoDisciplinaController = require('../controllers/aluno_disciplina.controller');
