@@ -7,32 +7,32 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<input type="hidden" name="idUsuario" id="idUsuario" value="<%= usuario.id %>">
+			<input type="hidden" name="idUsuario" id="idUsuario" value="<%= ( usuario ? usuario.id : '' ) %>">
 			<div class="dados_usuarios modal-body bg-dark text-white">
 				<form id="form_usuarios">
 					<div class="row">
 						<div class="form-group col">
 							<label for="nome">Nome</label>
-							<input type="text" class="form-control" id="nome" name="nome" maxlength="50" required value="<%= usuario.nome %>">
+							<input type="text" class="form-control" id="nome" name="nome" maxlength="50" required value="<%= ( usuario ? usuario.nome : 'Sem usuário' ) %>">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label for="sobrenome">Sobrenome</label>
-							<input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="100" required value="<%= usuario.sobrenome %>">
+							<input type="text" class="form-control" id="sobrenome" name="sobrenome" maxlength="100" required value="<%= ( usuario ? usuario.sobrenome : '' ) %>">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label for="email">E-mail</label>
-							<input type="email" class="form-control" id="email" name="email" maxlength="100" required value="<%= usuario.email %>">
+							<input type="email" class="form-control" id="email" name="email" maxlength="100" required value="<%= ( usuario ? usuario.email : '' ) %>">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col">
 							<label for="administrador">Tipo de Perfil</label>
 							<div class="custom-control custom-checkbox">
-								<input class="custom-control-input" id="administrador" name="administrador" type="checkbox" value="<%= usuario.administrador %>">
+								<input class="custom-control-input" id="administrador" name="administrador" type="checkbox" value="<%= ( usuario ? usuario.administrador : '0' ) %>">
 								<label class="custom-control-label" for="administrador">Administrador</label>
 							</div>
 						</div>

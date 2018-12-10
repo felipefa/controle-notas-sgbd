@@ -14,7 +14,7 @@
 			<a class="nav-item nav-link" href="/docs">Documentação</a>
 		</div>
 		<div class="navbar-nav ml-auto">
-			<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modal_usuarios"><%= usuario.nome %><% if (usuario.administrador == 1) { %> (Administrador)<% } %></a>
+			<a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#modal_usuarios"><%= ( usuario ? usuario.nome : 'Sem usuário' ) %><% if (usuario && usuario.administrador == 1) { %> (Administrador)<% } %></a>
 			<a class="nav-item nav-link text-danger" href="/sair">Sair</a>
 		</div>
 	</div>

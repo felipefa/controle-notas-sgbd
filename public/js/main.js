@@ -182,19 +182,19 @@ function gerarRelatorio(tipo) {
 								mostrarMensagemUsuario('alert-warning', `Nenhum aluno encontrado. Cadastre um na página Alunos.`);
 							}
 						}).fail(function(e) {
-							mostrarMensagemUsuario('alert-danger', `Erro ao buscar alunos: ${e.statusText}`);
+							mostrarMensagemUsuario('alert-danger', `Erro ao buscar alunos: ${e.responseJSON.mensagem}`);
 						});
 					} else {
 						mostrarMensagemUsuario('alert-warning', `Nenhuma nota encontrada. Cadastre uma na página Notas.`);
 					}
 				}).fail(function(e) {
-					mostrarMensagemUsuario('alert-danger', `Erro ao buscar notas: ${e.statusText}`);
+					mostrarMensagemUsuario('alert-danger', `Erro ao buscar notas: ${e.responseJSON.mensagem}`);
 				});
 			} else {
 				mostrarMensagemUsuario('alert-warning', `Nenhuma disciplina encontrada. Cadastre uma na página Disciplinas.`);
 			}
 		}).fail(function(e) {
-			mostrarMensagemUsuario('alert-danger', `Erro ao buscar disciplinas: ${e.statusText}`);
+			mostrarMensagemUsuario('alert-danger', `Erro ao buscar disciplinas: ${e.responseJSON.mensagem}`);
 		});
 	} else {
 		mostrarMensagemUsuario('alert-info', `Por favor, selecione uma disciplina para gerar seu relatório de notas.`);
@@ -376,7 +376,7 @@ function remover(tipo, id) {
 		mostrarMensagemUsuario('alert-success', `Dados removidos de ${tipo} com sucesso!`);
 		montarTabelaPorTipo(tipo);
 	}).fail(function (e) {
-		mostrarMensagemUsuario('alert-danger', `Erro ao remover dados de ${tipo}: ${e.statusText}`);
+		mostrarMensagemUsuario('alert-danger', `Erro ao remover dados de ${tipo}: ${e.responseJSON.mensagem}`);
 	});
 }
 
@@ -450,9 +450,9 @@ function salvar(tipo) {
 		}
 	}).fail(function (e) {
 		if (tipo === 'notas') {
-			mostrarMensagemUsuario('alert-danger', `Erro ao salvar notas: ${e.statusText}`);
+			mostrarMensagemUsuario('alert-danger', `Erro ao salvar notas: ${e.responseJSON.mensagem}`);
 		} else {
-			mostrarMensagemUsuario('alert-danger', `Erro ao salvar ${nomeDados}: ${e.statusText}`);
+			mostrarMensagemUsuario('alert-danger', `Erro ao salvar ${nomeDados}: ${e.responseJSON.mensagem}`);
 		}
 	});
 }

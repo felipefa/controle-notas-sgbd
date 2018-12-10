@@ -9,7 +9,7 @@
   </header>
 
   <main role="main" class="container py-3">
-    <h2 class="text-center text-white py-3"><%= usuario.nome %>, bem-vind@ ao Sistema de Controle de Notas!</h2>
+    <h2 class="text-center text-white py-3"><%= ( usuario ? usuario.nome : 'Sem usuário' ) %>, bem-vind@ ao Sistema de Controle de Notas!</h2>
     <div class="row" id="row_alunos_disciplinas" style="display: none;">
       <div class="col-12 col-md-6 my-3">
         <div class="card text-white bg-dark shadow-lg">

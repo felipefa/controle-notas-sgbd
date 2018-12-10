@@ -106,15 +106,11 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// Cuida de possíveis erros na rota
+// Cuida de possíveis erros na rota carregando página com o erro encontrado
 app.use((err, req, res, next) => {
-  // define variáveis locais de erro
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // carrega página de erro
   res.status(err.status || 500);
-  res.send('error');
+  // res.send(err.message);
+  res.render('pages/erro', { erro: err });
 });
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

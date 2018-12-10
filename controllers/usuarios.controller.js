@@ -22,10 +22,8 @@ exports.registrar = (req, res) => {
 	let atributos = Object.keys(Usuario);
 
 	atributos.forEach(atributo => {
-		if (req.body[atributo]) {
+		if (req.body[atributo] || atributo == 'administrador') {
 			Usuario[atributo] = req.body[atributo];
-		} else if (atributo === 'administrador') { 
-			Usuario[atributo] = '0';
 		} else {
 			console.log(`Erro ao criar usuário.\nAtributo ${atributo} vazio.`);
 			res.status(400).redirect('/registrar');
@@ -155,7 +153,7 @@ exports.buscarUsuarioPorAtributo = (req, res) => {
 			console.log(`Erro ao buscar usuário por ${atributo}`, erro);
 			res.status(500).json({
 				erro,
-				mensagem: `Erro ao buscar usuário por ${atributo}`
+				mensagem: `Erro ao buscar usuário por ${atributo}.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			if (resultado.length > 0) {
@@ -198,7 +196,7 @@ exports.atualizarUsuario = (req, res) => {
 			if (erro) {
 				res.status(500).json({
 					erro,
-					mensagem: 'Erro ao atualizar usuário'
+					mensagem: `Erro ao atualizar usuário.\n ${erro.sqlMessage.replace('/','')}.`
 				});
 			} else {
 				res.status(200).json({
@@ -226,7 +224,7 @@ exports.removerUsuario = (req, res) => {
 			if (erro) {
 				res.status(500).json({
 					erro,
-					mensagem: `Erro ao remover usuário`
+					mensagem: `Erro ao remover usuário.\n ${erro.sqlMessage.replace('/','')}.`
 				});
 			} else {
 				res.status(200).json({

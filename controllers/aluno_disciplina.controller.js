@@ -30,7 +30,7 @@ exports.adicionarAlunoDisciplina = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao adicionar em aluno_disciplina'
+				mensagem: `Erro ao adicionar em aluno_disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			query = `UPDATE aluno_disciplina SET `;
@@ -50,7 +50,7 @@ exports.adicionarAlunoDisciplina = (req, res) => {
 				if (erro) {
 					res.status(500).json({
 						erro,
-						mensagem: 'Erro ao atualizar aluno_disciplina'
+						mensagem: `Erro ao atualizar aluno_disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 					});
 				} else {
 					res.status(200).json({
@@ -77,7 +77,7 @@ exports.buscarTodosAlunoDisciplina = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao buscar todos os aluno_disciplina'
+				mensagem: `Erro ao buscar todos os aluno_disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else if (resultados.length > 0) {
 			res.status(200).json({
@@ -110,7 +110,7 @@ exports.buscarAlunoDisciplinaPorAtributo = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: `Erro ao buscar aluno_disciplina por ${atributo}`
+				mensagem: `Erro ao buscar aluno_disciplina por ${atributo}.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else if (resultado.length > 0) {
 			res.status(200).json({
@@ -152,7 +152,7 @@ exports.atualizarAlunoDisciplina = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao atualizar aluno_disciplina'
+				mensagem: `Erro ao atualizar aluno_disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			res.status(200).json({
@@ -178,7 +178,7 @@ exports.removerAlunoDisciplina = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: `Erro ao excluir aluno`
+				mensagem: `Erro ao excluir aluno.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			res.status(200).json({

@@ -31,7 +31,7 @@ exports.adicionarDisciplina = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao adicionar disciplina'
+				mensagem: `Erro ao adicionar disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			res.status(200).json({
@@ -55,7 +55,7 @@ exports.buscarTodosDisciplinas = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao buscar todas as disciplinas'
+				mensagem: `Erro ao buscar todas as disciplinas.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		}
 		res.status(200).json({
@@ -89,7 +89,7 @@ exports.buscarDisciplinaPorAtributo = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: `Erro ao buscar disciplina por ${atributo}`
+				mensagem: `Erro ao buscar disciplina por ${atributo}.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			if (resultado.length <= 0) {
@@ -130,7 +130,7 @@ exports.atualizarDisciplina = (req, res) => {
 			if (erro) {
 				res.status(500).json({
 					erro,
-					mensagem: 'Erro ao atualizar disciplina'
+					mensagem: `Erro ao atualizar disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 				});
 			} else {
 				res.status(200).json({
@@ -170,7 +170,7 @@ exports.removerDisciplina = (req, res) => {
 				console.log(`Erro ao remover disciplina com id = ${req.params.id}`, erro);
 				res.status(500).json({
 					erro,
-					mensagem: `Erro ao excluir disciplina`
+					mensagem: `Erro ao excluir disciplina.\n ${erro.sqlMessage.replace('/','')}.`
 				});
 			} else {
 				console.log(`Disciplina com id = ${req.params.id} removida com sucesso!`);

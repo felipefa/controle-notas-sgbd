@@ -4,6 +4,10 @@
   --yellow-alt: #d39e00;
 }
 
+.btn {
+  font-weight: bold;
+}
+
 .card {
   border-radius: 1rem;
 }

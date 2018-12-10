@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<% include ../partials/head.ejs %>
+
+<body class="bg-dark">
+  <main role="main" class="container py-3 text-white">
+		<h1 class="py-3"><a href="/">Controle de Notas</a></h1>
+		<h2 class="display-3" style="font-weight: bold">Ops,<br>algo de errado não está certo!</h2>
+		<p><%= ( erro ? erro : 'Desculpe, não sabemos qual foi o problema.' ) %></p>
+		<div class="py-3">
+			<div class="row justify-content-center">
+				<img src="img/doh.png" alt="Homer Simpson ao falhar em alguma situação" height="200" width="200">
+			</div>
+			<div class="row justify-content-center">
+				<a class="btn-lg" href="/">Ir a página inicial</a> 
+			</div>
+		</div>
+  </main>
+</body>
+
+</html>

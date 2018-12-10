@@ -24,10 +24,6 @@ exports.adicionarAluno = (req, res) => {
 		if (req.body[atributo]) {
 			Aluno[atributo] = req.body[atributo];
 			query += `"${Aluno[atributo]}",`;
-		} else {			
-			res.status(400).json({
-				mensagem: `Erro ao adicionar aluno. Atributo ${atributo} não informado.`
-			});
 		}
 	});
 	query = query.replace(/,\s*$/, '');
@@ -39,7 +35,7 @@ exports.adicionarAluno = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao adicionar aluno'
+				mensagem: `Erro ao adicionar aluno.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			res.status(200).json({
@@ -63,7 +59,7 @@ exports.buscarTodosAlunos = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: 'Erro ao buscar todos os alunos'
+				mensagem: `Erro ao buscar todos os alunos.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		}
 		res.status(200).json({
@@ -99,7 +95,7 @@ exports.buscarAlunoPorAtributo = (req, res) => {
 		if (erro) {
 			res.status(500).json({
 				erro,
-				mensagem: `Erro ao buscar aluno por ${atributo}`
+				mensagem: `Erro ao buscar aluno por ${atributo}.\n ${erro.sqlMessage.replace('/','')}.`
 			});
 		} else {
 			if (resultado.length > 0) {
@@ -141,7 +137,7 @@ exports.atualizarAluno = (req, res) => {
 			if (erro) {
 				res.status(500).json({
 					erro,
-					mensagem: 'Erro ao atualizar aluno'
+					mensagem: `Erro ao atualizar aluno.\n ${erro.sqlMessage.replace('/','')}.`
 				});
 			} else {
 				res.status(200).json({
@@ -183,7 +179,7 @@ exports.removerAluno = (req, res) => {
 				console.log(`Erro ao remover aluno com id = ${req.params.id}`, erro);
 				res.status(500).json({
 					erro,
-					mensagem: `Erro ao excluir aluno`
+					mensagem: `Erro ao excluir aluno.\n ${erro.sqlMessage.replace('/','')}.`
 				});
 			} else {
 				console.log(`Aluno com id = ${req.params.id} removido com sucesso!`);
